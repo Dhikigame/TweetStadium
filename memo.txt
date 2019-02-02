@@ -1,0 +1,3 @@
+* model
+StadiumPost：スタジアムの情報が保管されるモデル
+TweetPost：ツイートした情報が保管されるモデル
