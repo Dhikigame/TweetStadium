@@ -1,1 +1,2 @@
 # TweetStadium
+スタジアム周辺のTwitterで投稿されたツイートを観覧するWebアプリケーション
