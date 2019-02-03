@@ -15,11 +15,12 @@ class CreateStadiumPostsTable extends Migration
     {
         Schema::create('stadium_posts', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('stadium');//スタジアム名
-            $table->double('latitude');//緯度
+            $table->string('stadium');  //スタジアム名
+            $table->double('latitude'); //緯度
             $table->double('longitude');//経度
-            $table->string('league');//何のスポーツのリーグか
-            $table->string('address');//住所
+            $table->string('league');   //何のスポーツのリーグか
+            $table->string('address');  //住所
+            $table->string('country');  //国
             $table->timestamps();
         });
     }

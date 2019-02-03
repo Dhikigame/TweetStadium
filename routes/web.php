@@ -11,3 +11,4 @@
 |
 */
 Route::get('/', 'StadiumPostsController@index');
+Route::get('/stadium/{id}', 'StadiumPostsController@show');
