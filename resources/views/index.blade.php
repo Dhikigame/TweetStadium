@@ -11,7 +11,7 @@
         @forelse ($stadium_posts as $stadium_post)
         <li><a href="{{ action('StadiumPostsController@show', $stadium_post->id) }}">{{ $stadium_post->stadium }}</a></li>
         @empty
-        <li>No posts yet</li>
+        <li>No stadium yet</li>
         @endforelse
     </ul>
   </div>
