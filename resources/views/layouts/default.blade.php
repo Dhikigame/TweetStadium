@@ -1,6 +1,15 @@
-<?php
-//JSON形式に変換する関数を定義
-function json_safe_encode($data){
-  return json_encode($data, JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT);
-}
-?>
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>@yield('title'){{ $stadium_post->stadium }}</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+  @yield('script')
+</head>
+<body>
+  <div class="container">
+    @yield('content')
+  </div>
+</body>
+</html>
