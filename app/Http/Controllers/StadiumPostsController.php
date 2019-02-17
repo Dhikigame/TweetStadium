@@ -16,4 +16,46 @@ class StadiumPostsController extends Controller
         $post = StadiumPost::findOrFail($id);
         return view('show')->with('stadium_post', $post);
     }
+
+    public function edit($id) {
+        $post = StadiumPost::findOrFail($id);
+        return view('edit')->with('stadium_post', $post);
+    }
+
+    public function create() {
+        return view('create');
+    }
+
+    public function update(Request $request, $id) {
+        $post = StadiumPost::findOrFail($id);
+        $this->validate($request, [
+          'latitude' => 'required|numeric',
+          'longitude' => 'required|numeric'
+        ]);
+        $post->stadium = $request->stadium;
+        $post->latitude = $request->latitude;
+        $post->longitude = $request->longitude;
+        $post->league = $request->league;
+        $post->address = $request->address;
+        $post->country = $request->country;
+        $post->save();
+        return redirect('/');
+    }
+
+    public function store(Request $request) {
+        $post = new StadiumPost();
+        $this->validate($request, [
+            'stadium' => 'required|string',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric'
+        ]);
+        $post->stadium = $request->stadium;
+        $post->latitude = $request->latitude;
+        $post->longitude = $request->longitude;
+        $post->league = $request->league;
+        $post->address = $request->address;
+        $post->country = $request->country;
+        $post->save();
+        return redirect('/');
+    }
 }

@@ -11,4 +11,8 @@
 |
 */
 Route::get('/', 'StadiumPostsController@index');
+Route::get('/stadium/create', 'StadiumPostsController@create');
 Route::get('/stadium/{id}', 'StadiumPostsController@show');
+Route::get('/stadium/{id}/edit', 'StadiumPostsController@edit');
+Route::patch('/stadium/{id}', 'StadiumPostsController@update');
+Route::post('/stadium', 'StadiumPostsController@store');

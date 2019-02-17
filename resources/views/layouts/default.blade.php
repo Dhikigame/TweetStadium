@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
   <meta charset="utf-8">
-  <title>@yield('title'){{ $stadium_post->stadium }}</title>
+  <title>@yield('title')</title>
   <link rel="stylesheet" href="/css/styles.css">
   <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
   @yield('script')

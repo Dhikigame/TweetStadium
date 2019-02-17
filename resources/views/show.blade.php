@@ -2,7 +2,6 @@
 @include('php_js.json_decode')
 
 @section('title', $stadium_post->stadium)
-
 <?php 
   $lat_lon = [
     'latitude' => $stadium_post->latitude,
@@ -10,6 +9,9 @@
   ];
 ?>
 @section('script')
+<h1>
+  <a href="{{ url('/') }}" class="header-menu">Back</a>
+</h1>
 <script id="lat_lon" type="text/javascript" src="/js/GoogleMapCircle.js" 
   lat_lon='<?php echo json_safe_encode($lat_lon);?>'>
 </script>
