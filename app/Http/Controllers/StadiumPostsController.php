@@ -58,4 +58,10 @@ class StadiumPostsController extends Controller
         $post->save();
         return redirect('/');
     }
+
+    public function destroy($id) {
+        $post = StadiumPost::findOrFail($id);
+        $post->delete();
+        return redirect('/');
+    }
 }

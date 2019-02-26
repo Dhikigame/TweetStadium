@@ -15,6 +15,11 @@
         <li>
           <a href="{{ action('StadiumPostsController@show', $stadium_post->id) }}">{{ $stadium_post->stadium }}</a>
           <a href="{{ action('StadiumPostsController@edit', $stadium_post->id) }}" class="edit">[Edit]</a>
+          <a href="#" class="del" data-id="{{ $stadium_post->id }}">[x]</a>
+          <form method="post" action="{{ url('/stadium', $stadium_post->id) }}" id="form_{{ $stadium_post->id }}">
+            {{ csrf_field() }}
+            {{ method_field('delete') }}
+          </form>        
         </li>
         @empty
         <li>No stadium yet</li>
@@ -22,4 +27,5 @@
     </ul>
   </div>
 </body>
+<script src="/js/delete.js"></script>
 </html>
