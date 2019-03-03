@@ -18,6 +18,7 @@
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-IDQ14bKghIr8K9ut0HaYtL_D0Is3Fd0&callback=initMap">
 </script>
+<link rel="stylesheet" href="{{ mix('css/app.css') }}">
 @endsection
 
 @section('content')
@@ -25,9 +26,10 @@
   <p>緯度：{{ $stadium_post->latitude }}</p>
   <p>経度：{{ $stadium_post->longitude }}</p>
   <p>アドレス：{{ $stadium_post->address }}</p>
-<center>
-  <div id="map" style="width:300px; height:300px"></div>
-
-
-</center>
+  <center>
+    <div id="map" style="width:300px; height:300px"></div>
+  </center>
+  <div id="app">
+    @{{ name }}
+  </div>
 @endsection
