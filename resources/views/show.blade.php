@@ -1,4 +1,5 @@
-@extends('layouts.default')
+@extends('default')
+@include('Twitter.TweetGet')
 @include('php_js.json_decode')
 
 @section('title', $stadium_post->stadium)
@@ -7,6 +8,7 @@
     'latitude' => $stadium_post->latitude,
     'longitude' => $stadium_post->longitude
   ];
+  tweetget($lat_lon);
 ?>
 @section('script')
 <h1>
@@ -18,7 +20,6 @@
 <script async defer
   src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC-IDQ14bKghIr8K9ut0HaYtL_D0Is3Fd0&callback=initMap">
 </script>
-<link rel="stylesheet" href="{{ mix('css/app.css') }}">
 @endsection
 
 @section('content')
@@ -33,3 +34,6 @@
     @{{ name }}
   </div>
 @endsection
+<?php
+
+?>
