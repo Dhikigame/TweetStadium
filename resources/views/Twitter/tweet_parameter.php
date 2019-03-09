@@ -1,25 +1,9 @@
 <?php
-    function tweet_parameter($latitude, $longitude, $bearer_token ,$request_url){
-        // パラメータ
-        $params = array(
-                'geocode' => $latitude.','.$longitude.',0.5km' ,   // 検索キーワード
-                'result_type' => 'mixed' ,		            // 検索クエリの言語コード
-                'count' => '100' ,		                    // 取得件数
-                );
+    function tweet_parameter($latitude, $longitude){
 
-        // パラメータがある場合
-        if( $params ){
-            $request_url .= '?' . http_build_query( $params ) ;
-        }
+        // 指定位置パラメータ設定
+        $params = ['geocode' => $latitude.','.$longitude.',0.5km' ,'count' => '100'];
 
-        // リクエスト用のコンテキスト
-        $context = array(
-                'http' => array(
-                        'method' => 'GET' , // リクエストメソッド
-                        'header' => array(			  // ヘッダー
-                                'Authorization: Bearer '.$bearer_token ,
-                                ),
-                        ),
-                );
+        return $params;
     }
 ?>

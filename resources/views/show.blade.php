@@ -8,7 +8,7 @@
     'latitude' => $stadium_post->latitude,
     'longitude' => $stadium_post->longitude
   ];
-  tweetget($lat_lon);
+  $tweet = tweetget($lat_lon);
 ?>
 @section('script')
 <h1>

@@ -1,0 +1,47 @@
+・Twitter for Android,Twitter for iPhone
+[subscript]:
+    text:ツイート文章
+    source: どのデバイス・SNSでツイートされたか
+    【例】
+    Twitter for Android
+    Twitter for iPhone
+    Foursquare
+    Instagram
+    Foursquare Swarm
+    extended_entities:画像や動画などのメディア情報
+        media:
+            [subscript]:
+                media_url:ツイートしたときに載せた画像のURL(大きさ修正する必要あり)
+                url:ツイートのURL
+    place:
+        bounding_box:
+            coordinates:
+                [0]:
+                    [0]:
+                        [0]:longitude
+                        [1]:latitude
+
+
+・Foursquare,Instagram,Foursquare Swarm
+[subscript]:
+    text:ツイート文章
+    source: どのデバイス・SNSでツイートされたか
+    【例】
+    Twitter for Android
+    Twitter for iPhone
+    Foursquare
+    Instagram
+    Foursquare Swarm
+    extended_entities:画像や動画などのメディア情報
+        media:
+            [subscript]:
+                media_url:ツイートしたときに載せた画像のURL(大きさ修正する必要あり)
+                url:ツイートのURL
+    geo:
+        coordinates:
+            [0]:latitude
+            [1]:longitude
+    coordinates:
+        coordinates:
+            [0]:longitude
+            [1]:latitude

@@ -32,6 +32,6 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
 var app = new Vue({
     el: '#app',
     data: {
-        name: 'Hello 8んjっっゅhgybjk'
+        name: 'Heゅhgybjk'
     }
 })
