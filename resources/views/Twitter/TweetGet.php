@@ -51,6 +51,8 @@ Class Twitter_TweetGet{
         require_once "tweet_parse.php";
         $tweet_parse = new Tweet_Parse($this->tweet);
         $tweet_parse->name_parse($this->tweet);
+        $tweet_parse->prof_img_parse($this->tweet);
+        $tweet_parse->content_parse($this->tweet);
     }
 
     // ツイート取得
