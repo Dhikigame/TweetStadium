@@ -50,9 +50,13 @@ Class Twitter_TweetGet{
     public function parse(){
         require_once "tweet_parse.php";
         $tweet_parse = new Tweet_Parse($this->tweet);
-        $tweet_parse->name_parse($this->tweet);
-        $tweet_parse->prof_img_parse($this->tweet);
-        $tweet_parse->content_parse($this->tweet);
+        $tweet_parse->name_parse($this->tweet);         // ユーザ名
+        $tweet_parse->prof_img_parse($this->tweet);     // プロフィール画像
+        $tweet_parse->content_parse($this->tweet);      // ツイート文章
+        $tweet_parse->date_parse($this->tweet);         // 投稿日付
+        $tweet_parse->source_parse($this->tweet);       // 投稿元のアプリ・デバイス
+        $tweet_parse->url_parse($this->tweet);          // ツイートURL
+
     }
 
     // ツイート取得
