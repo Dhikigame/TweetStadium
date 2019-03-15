@@ -13,6 +13,10 @@
             [subscript]:
                 media_url:ツイートしたときに載せた画像のURL(大きさ修正する必要あり)
                 url:ツイートのURL
+    entities:
+        hashtags:
+            [0-9]:
+                text:
     place:
         bounding_box:
             coordinates:

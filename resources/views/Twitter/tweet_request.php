@@ -12,9 +12,12 @@
 		// var_dump($geo_tweet);
 		// echo('</pre>');
 		return $geo_tweet;
-		// echo('<pre>');
-		// var_dump($geo);
-		// echo('</pre>');
+		// $user_params = ['count' => '10'];
+		// $user = $connection->get('statuses/user_timeline', $user_params);
+		// // echo('<pre>');
+		// // var_dump($user);
+		// // echo('</pre>');
+		// return $user;
 		// print_r($geo);
 		// echo "<img src='https://pbs.twimg.com/media/D1MpmNuUcAAwFBn.jpg'>";
 		// <img alt="" class="media-image" src="https://pbs.twimg.com/media/D1MpmNuUcAAwFBn.jpg:large

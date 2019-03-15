@@ -10,7 +10,7 @@ Class Tweet_Parse extends Twitter_TweetGet{
     protected $date;
     protected $source;
     protected $url;
-    protected $img_url;
+    protected $post_media;
     protected $tweet_lat_lon;
 
     public function __construct($tweet){
@@ -46,15 +46,12 @@ Class Tweet_Parse extends Twitter_TweetGet{
                 //ツイート文書からURLをエスケープ
                 $content[$count] = str_replace($url, '', $content[$count]);
             }
+            /* TODO: URLのパースをできるようにしたい */
             if(strpos($tweet->source, "Twitter") !== false){
                 $url = "https://t.co/";
                 //ツイート文書からURLをエスケープ
                 $content[$count] = str_replace($url, "", $content[$count]);
             }
-
-                // echo('<pre>');
-                // var_dump($tweet);
-                // echo('</pre>');
             $count++;
         }
         $this->content = $content;
@@ -65,7 +62,8 @@ Class Tweet_Parse extends Twitter_TweetGet{
         foreach ($tweets as $tweet){
             //取得した日付を東京の時刻に変換し、日付フォーマット変換
             date_default_timezone_set('Asia/Tokyo');
-            $date[$count] = date('Y-m-d H:i:s', strtotime($tweet->created_at));
+            $date[$count] = date('Y年m月d日 H:i:s', strtotime($tweet->created_at));
+
             $count++;
         }
         $this->date = $date;
@@ -86,21 +84,167 @@ Class Tweet_Parse extends Twitter_TweetGet{
             //ツイート情報からURL抜き出す
             if(strpos($tweet->source, "Instagram") !== false || strpos($tweet->source, "Foursquare") !== false){
                 $url[$count] = $tweet->entities->urls[0]->url;
-                echo('<pre>');
-                var_dump($tweet);
-                print("   ".$count);
-                echo('</pre>');
                 $count++;
                 continue;
             }
+            // sourceがTwitterなら文末の23文字をURLとする
+            // TODO: URL取得方法を改善したい
             $url[$count] = substr($tweet->text, -23);
+            $count++;
+        }
+        $this->url = $url;
+    }
+
+    protected function post_media_parse($tweets){
+        $count = 0;
+        foreach ($tweets as $tweet){
+            // メディアがビデオである場合はビデオURLを取得し、ループを抜ける
+            // HACK: あまり綺麗なコードの書き方ではない
+            if(!empty($tweet->extended_entities->media[0]->video_info->variants[0]->url)){
+                for($sub = 0; $sub <= 3; $sub++){
+                    if(!empty($tweet->extended_entities->media[0]->video_info->variants[$sub]->bitrate)){
+                        $bitrate_match = $tweet
+                                        ->extended_entities
+                                        ->media[0]
+                                        ->video_info
+                                        ->variants[$sub]
+                                        ->bitrate;
+                        if($bitrate_match === 832000){
+                            $post_media[$count][0] = $tweet
+                                                ->extended_entities
+                                                ->media[0]
+                                                ->video_info
+                                                ->variants[$sub]
+                                                ->url;
+                            break;
+                        }
+                    }
+                }
+                // ビデオを登録したら、後の配列データにあるそのツイートのpost_mediaを"None"にする
+                $post_media[$count][1] = "None";
+                $post_media[$count][2] = "None";
+                $post_media[$count][3] = "None";
+
+                $count++;
+                continue;
+            }
+
+            // メディアがイメージである場合はイメージURLを投稿された総数(4枚まで)取得し、ループを抜ける
+            if(!empty($tweet->extended_entities->media[0]->media_url)){
+                for($sub = 0; $sub <= 3; $sub++){
+                    if(!empty($tweet->extended_entities->media[$sub]->media_url)){
+                        $post_media[$count][$sub] = $tweet
+                                                    ->extended_entities
+                                                    ->media[$sub]
+                                                    ->media_url;
+                        // 以前登録したmedia_urlが同じだった場合、ループ抜けイメージのURL取得をやめる
+                        if($sub >= 1 && strpos($post_media[$count][$sub], $post_media[$count][$sub - 1]) !== false ){
+                            break;
+                        }
+                    }else{
+                        // メディアがない場合、そのツイートのpost_mediaを"None"にする
+                        $post_media[$count][$sub] = "None";
+                    }
+                }
+                // ビデオを登録したら、後の配列データにあるそのツイートのpost_mediaを"None"にする
+                for(; $sub <= 3; $sub++){
+                    $post_media[$count][$sub] = "None";
+                }
+                $count++;
+                continue;
+            }
+            // ビデオURLがない場合、そのツイートのpost_mediaを全て"None"にする
+            $post_media[$count][0] = "None";
+            $post_media[$count][1] = "None";
+            $post_media[$count][2] = "None";
+            $post_media[$count][3] = "None";
+
+            $count++;
+        }
+
+        $this->post_media = $post_media;
+        // $this->test_parse($count - 1, $post_media);
+    }
+
+    protected function tweet_lat_lon($tweets){
+        $count = 0;
+        foreach ($tweets as $tweet){
+            //ツイート情報から位置情報を抜き出す
+            if(strpos($tweet->source, "Instagram") !== false || strpos($tweet->source, "Foursquare") !== false){
+                $latitude = $tweet->geo->coordinates[0];
+                $longitude = $tweet->geo->coordinates[1];
+            }else{
+                $latitude = $tweet->place->bounding_box->coordinates[0][0][1];
+                $longitude = $tweet->place->bounding_box->coordinates[0][0][0];
+            }
+            $lat_lon[$count]['latitude'] = $latitude;
+            $lat_lon[$count]['longitude'] = $longitude;
+
+            // print($count."<br>");
+            // print("【中身】<br>".$this->content[$count]."<br>");
+            // print("【URL】<br><a href='".$this->url[$count]."' target='_blank'>".$this->url[$count]."</a><br>");
+            // print("【ソース】<br>".$this->source[$count]."<br>");
+            // print("緯度：".$lat_lon[$count]['latitude']."<br>");
+            // print("経度：".$lat_lon[$count]['longitude']."<br>");
+            // print("【Media】<br>");
+            // for($sub = 0; $sub <= 3; $sub++){
+            //     print("<a href='".$this->post_media[$count][$sub]."' target='_blank'>".$this->post_media[$count][$sub]."</a><br>");
+            // }
+            // print("<br>");
+            $count++;
+        }
+        $this->tweet_lat_lon = $lat_lon;
+        // $this->test_parse($count);
+    }
+
+    // hashtags取り出し、#[文字列]を<a href=>hashtags</a>に置換する
+    protected function hashtag_url_parse($tweets){
+        $count = 0;
+        foreach ($tweets as $tweet){
+            $hash_count = 0;
+            print($count."<br>");
+            print("【URL】<br><a href='".$this->url[$count]."' target='_blank'>".$this->url[$count]."</a><br>");
+            print("<br>");
+            if(strpos($tweet->text, "#") !== false){
+                // ハッシュタグがあるなら取得し、content文書から相当するハッシュタグを全てリンクに置き換える
+                foreach($tweet->entities->hashtags as $hashtag){
+                    $hashtags[$count][$hash_count] = $hashtag->text;
+                    $link_replace = "<a href='https://twitter.com/hashtag/".$hashtags[$count][$hash_count]."?src=hash' target='_blank'>#".$hashtags[$count][$hash_count]."</a><br>";
+                    $content = $this->content[$count];
+                    $this->content[$count] = str_replace("#".$hashtags[$count][$hash_count], $link_replace, $content);
+
+                    print("#".$hashtags[$count][$hash_count]."<br>");
+                    $hash_count++;
+                }
+            }
+            print("【ソース】<br>".$this->content[$count]."<br>");
+            print("<br>");
+            $count++;
+        }
+    }
+
+    protected function test_parse($count_total){
+        $count = 0;
+        while($count <= $count_total){
             echo('<pre>');
-            var_dump($tweet);
-            print("   ".$count);
+
+            print($count."<br>");
+            
+            print("【URL】<br>");
+            // print("<a href='".$this->url[$count]."' target='_blank'>".$this->url[$count]."</a><br>");
+
+            print("緯度：".$this->tweet_lat_lon[$count]['latitude']."<br>");
+            print("経度：".$this->tweet_lat_lon[$count]['longitude']."<br>");
+
+            print("【Media】<br>");
+            for($sub = 0; $sub <= 3; $sub++){
+                print("<a href='".$this->post_media[$count][$sub]."' target='_blank'>".$this->post_media[$count][$sub]."</a><br>");
+            }
+
             echo('</pre>');
             $count++;
         }
-        // $this->source = $source;
     }
+
 }
 ?>
