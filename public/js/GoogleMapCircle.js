@@ -10,6 +10,10 @@ GoogleMapで対象の範囲を表示
 // 緯度・経度の取得
 var $lat_lon = $('#lat_lon');
 var lat_lon = JSON.parse($lat_lon.attr('lat_lon'));
+console.log(lat_lon['latitude']);
+// var $tweet_lat_lon = $('#tweet_lat_lon');
+// var tweet_lat_lon = JSON.parse($tweet_lat_lon.attr('tweet_lat_lon'));
+// console.log(tweet_lat_lon[2]['latitude']);
 
 function initMap() {
     var latlng = new google.maps.LatLng(lat_lon['latitude'], lat_lon['longitude']);

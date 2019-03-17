@@ -5,6 +5,7 @@ Class Tweet_Parse extends Twitter_TweetGet{
     protected $tweet;
 
     protected $name;
+    protected $screen_name;
     protected $prof_img;
     protected $content;
     protected $date;
@@ -24,8 +25,19 @@ Class Tweet_Parse extends Twitter_TweetGet{
             $count++;
         }
         $this->name = $name;
+        return $this->name;
     }
 
+    protected function screen_name_parse($tweets){
+        $count = 0;
+        foreach ($tweets as $tweet){
+            $screen_name[$count] = $tweet->user->screen_name;
+            $count++;
+        }
+        $this->screen_name = $screen_name;
+        return $this->screen_name;
+    }
+    
     protected function prof_img_parse($tweets){
         $count = 0;
         foreach ($tweets as $tweet){
@@ -33,6 +45,7 @@ Class Tweet_Parse extends Twitter_TweetGet{
             $count++;
         }
         $this->prof_img = $prof_img;
+        return $this->prof_img;
     }
 
     protected function content_parse($tweets){
@@ -55,6 +68,7 @@ Class Tweet_Parse extends Twitter_TweetGet{
             $count++;
         }
         $this->content = $content;
+        return $this->content;
     }
 
     protected function date_parse($tweets){
@@ -67,6 +81,7 @@ Class Tweet_Parse extends Twitter_TweetGet{
             $count++;
         }
         $this->date = $date;
+        return $this->date;
     }
 
     protected function source_parse($tweets){
@@ -76,6 +91,7 @@ Class Tweet_Parse extends Twitter_TweetGet{
             $count++;
         }
         $this->source = $source;
+        return $this->source;
     }
 
     protected function url_parse($tweets){
@@ -93,6 +109,7 @@ Class Tweet_Parse extends Twitter_TweetGet{
             $count++;
         }
         $this->url = $url;
+        return $this->url;
     }
 
     protected function post_media_parse($tweets){
@@ -163,16 +180,16 @@ Class Tweet_Parse extends Twitter_TweetGet{
         }
 
         $this->post_media = $post_media;
-        // $this->test_parse($count - 1, $post_media);
+        return $this->post_media;
     }
 
-    protected function tweet_lat_lon($tweets){
+    protected function tweet_lat_lon_parse($tweets){
         $count = 0;
         foreach ($tweets as $tweet){
             //ツイート情報から位置情報を抜き出す
             if(strpos($tweet->source, "Instagram") !== false || strpos($tweet->source, "Foursquare") !== false){
-                $latitude = $tweet->geo->coordinates[0];
-                $longitude = $tweet->geo->coordinates[1];
+                $latitude = $tweet->geo->coordinates[0]; // 緯度
+                $longitude = $tweet->geo->coordinates[1]; // 経度
             }else{
                 $latitude = $tweet->place->bounding_box->coordinates[0][0][1];
                 $longitude = $tweet->place->bounding_box->coordinates[0][0][0];
@@ -180,31 +197,20 @@ Class Tweet_Parse extends Twitter_TweetGet{
             $lat_lon[$count]['latitude'] = $latitude;
             $lat_lon[$count]['longitude'] = $longitude;
 
-            // print($count."<br>");
-            // print("【中身】<br>".$this->content[$count]."<br>");
-            // print("【URL】<br><a href='".$this->url[$count]."' target='_blank'>".$this->url[$count]."</a><br>");
-            // print("【ソース】<br>".$this->source[$count]."<br>");
-            // print("緯度：".$lat_lon[$count]['latitude']."<br>");
-            // print("経度：".$lat_lon[$count]['longitude']."<br>");
-            // print("【Media】<br>");
-            // for($sub = 0; $sub <= 3; $sub++){
-            //     print("<a href='".$this->post_media[$count][$sub]."' target='_blank'>".$this->post_media[$count][$sub]."</a><br>");
-            // }
-            // print("<br>");
             $count++;
         }
         $this->tweet_lat_lon = $lat_lon;
-        // $this->test_parse($count);
+        return $this->tweet_lat_lon;
     }
 
-    // hashtags取り出し、#[文字列]を<a href=>hashtags</a>に置換する
+    // hashtags取り出し、#hashtagを<a href="https://twitter.com/hashtag/<hashtag>">hashtag</a>に置換する
     protected function hashtag_url_parse($tweets){
         $count = 0;
         foreach ($tweets as $tweet){
             $hash_count = 0;
-            print($count."<br>");
-            print("【URL】<br><a href='".$this->url[$count]."' target='_blank'>".$this->url[$count]."</a><br>");
-            print("<br>");
+            // print($count."<br>");
+            // print("【URL】<br><a href='".$this->url[$count]."' target='_blank'>".$this->url[$count]."</a><br>");
+            // print("<br>");
             if(strpos($tweet->text, "#") !== false){
                 // ハッシュタグがあるなら取得し、content文書から相当するハッシュタグを全てリンクに置き換える
                 foreach($tweet->entities->hashtags as $hashtag){
@@ -213,12 +219,16 @@ Class Tweet_Parse extends Twitter_TweetGet{
                     $content = $this->content[$count];
                     $this->content[$count] = str_replace("#".$hashtags[$count][$hash_count], $link_replace, $content);
 
-                    print("#".$hashtags[$count][$hash_count]."<br>");
+                    // print("#".$hashtags[$count][$hash_count]."<br>");
                     $hash_count++;
                 }
             }
-            print("【ソース】<br>".$this->content[$count]."<br>");
-            print("<br>");
+            // print("【ソース】<br>".$this->content[$count]."<br>");
+            // print("【Media】<br>");
+            // for($sub = 0; $sub <= 3; $sub++){
+            //     print("<a href='".$this->post_media[$count][$sub]."' target='_blank'>".$this->post_media[$count][$sub]."</a><br>");
+            // }
+            // print("<br>");
             $count++;
         }
     }

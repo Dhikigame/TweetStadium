@@ -14,7 +14,10 @@ Class Twitter_TweetGet{
     //ツイート取得パラメータ
     private $params;
     protected $tweet;
-    
+
+    //ツイートをパース化したデータ格納配列
+    private $tweet_parse_store;
+
     // 位置情報とKey・Tokenを登録するコンストラクタ
     public function __construct($latitude, $longitude){
         // 位置情報登録
@@ -50,21 +53,28 @@ Class Twitter_TweetGet{
     public function parse(){
         require_once "tweet_parse.php";
         $tweet_parse = new Tweet_Parse($this->tweet);
-        $tweet_parse->name_parse($this->tweet);                     // ユーザ名
-        $tweet_parse->prof_img_parse($this->tweet);                 // プロフィール画像
-        $tweet_parse->content_parse($this->tweet);                  // ツイート文章
-        $tweet_parse->date_parse($this->tweet);                     // 投稿日付
-        $tweet_parse->source_parse($this->tweet);                   // 投稿元のアプリ・デバイス
-        $tweet_parse->url_parse($this->tweet);                      // ツイートURL
-        $tweet_parse->post_media_parse($this->tweet);               // ツイートに投稿された画像
-        $tweet_parse->tweet_lat_lon($this->tweet);                  // ツイートを投稿した位置情報
-        $tweet_parse->hashtag_url_parse($this->tweet);              // ハッシュタグのリンク化
+        $this->tweet_parse_store['name'] = $tweet_parse->name_parse($this->tweet);       // ユーザ名
+        $this->tweet_parse_store['screen_name'] = $tweet_parse->screen_name_parse($this->tweet); //ユーザID
+        $this->tweet_parse_store['prof_img'] = $tweet_parse->prof_img_parse($this->tweet);   // プロフィール画像
+        $this->tweet_parse_store['content'] = $tweet_parse->content_parse($this->tweet);    // ツイート文章
+        $this->tweet_parse_store['date'] = $tweet_parse->date_parse($this->tweet);       // 投稿日付
+        $this->tweet_parse_store['source'] = $tweet_parse->source_parse($this->tweet);     // 投稿元のアプリ・デバイス
+        $this->tweet_parse_store['url'] = $tweet_parse->url_parse($this->tweet);        // ツイートURL
+        $this->tweet_parse_store['post_media'] = $tweet_parse->post_media_parse($this->tweet); // ツイートに投稿された画像
+        $this->tweet_parse_store['tweet_lat_lon'] = $tweet_parse->tweet_lat_lon_parse($this->tweet);    // ツイートを投稿した位置情報
+        $tweet_parse->hashtag_url_parse($this->tweet);// ツイート文章にあるハッシュタグのリンク化
     }
 
     // ツイート取得
     public function tweet_get(){
         return $this->tweet;
     }
+
+    // パースしたツイートデータ取得
+    public function tweet_parse_get(){
+        return $this->tweet_parse_store;
+    }
+
 }
 
 function tweetget($lat_lon){
@@ -74,7 +84,7 @@ function tweetget($lat_lon){
     $tweet_location->request();
     // 取得したツイートから用途ごとにパース
     $tweet_location->parse();
-
-    return $tweet_location->tweet_get();
+    // パースしたツイートデータを返す
+    return $tweet_location->tweet_parse_get();
 }
 ?>

@@ -15,7 +15,7 @@
                 url:ツイートのURL
     entities:
         hashtags:
-            [0-9]:
+            [sub]:
                 text:
     place:
         bounding_box:
@@ -24,7 +24,8 @@
                     [0]:
                         [0]:longitude
                         [1]:latitude
-
+// tweet_lat_lon='<?php echo json_safe_encode($tweet['tweet_lat_lon'][0]);?>
+lat_lon='<?php echo json_safe_encode($lat_lon);?>' 
 
 ・Foursquare,Instagram,Foursquare Swarm
 [subscript]:
