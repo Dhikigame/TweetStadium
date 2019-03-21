@@ -18,9 +18,11 @@
 
 
 @section('script')
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/js/lightbox.min.js" type="text/javascript"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/lightbox2/2.7.1/css/lightbox.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/lity.css">
+<link rel="stylesheet" href="/css/luminous-basic.min.css">
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="/js/lity.js"></script>
 
 <script id="lat_lon" type="text/javascript" src="/js/GoogleMapCircle.js" lat_lon='<?php echo json_safe_encode($lat_lon);?>' >
 </script>
@@ -42,6 +44,12 @@
   <div id="app">
     @{{ name }}
   </div>
+  <script src="/js/Luminous.min.js"></script>
+  <script>
+    var luminousTrigger = document.querySelectorAll('.zoomImg');
+    new LuminousGallery(luminousTrigger);
+  </script>
+
 @endsection
 <?php
 
