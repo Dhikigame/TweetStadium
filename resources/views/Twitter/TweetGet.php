@@ -62,7 +62,8 @@ Class Twitter_TweetGet{
         $this->tweet_parse_store['url'] = $tweet_parse->url_parse($this->tweet);        // ツイートURL
         $this->tweet_parse_store['post_media'] = $tweet_parse->post_media_parse($this->tweet); // ツイートに投稿された画像
         $this->tweet_parse_store['tweet_lat_lon'] = $tweet_parse->tweet_lat_lon_parse($this->tweet);    // ツイートを投稿した位置情報
-        $tweet_parse->hashtag_url_parse($this->tweet);// ツイート文章にあるハッシュタグのリンク化
+        $this->tweet_parse_store['content'] = $tweet_parse->hashtag_url_parse($this->tweet);// ツイート文章にあるハッシュタグのリンク化
+        $this->tweet_parse_store['count'] = $tweet_parse->tweet_count($this->tweet);    // ツイート総数
     }
 
     // ツイート取得

@@ -231,6 +231,15 @@ Class Tweet_Parse extends Twitter_TweetGet{
             // print("<br>");
             $count++;
         }
+        return $this->content;
+    }
+
+    protected function tweet_count($tweets){
+        $count = 0;
+        foreach ($tweets as $tweet){
+            $count++;
+        }
+        return $count - 1;
     }
 
     protected function test_parse($count_total){

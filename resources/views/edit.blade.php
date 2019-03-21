@@ -1,4 +1,4 @@
-@extends('default')
+@extends('layouts.default')
 @include('php_js.json_decode')
 
 @section('title', $stadium_post->stadium)
