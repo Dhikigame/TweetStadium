@@ -6,12 +6,12 @@
 		$connection = new TwistOAuth($consumer_key, $consumer_secret, $access_token, $access_token_secret);
 
 		// ツイート情報を配列で取得
-		$geo_tweet = $connection->get('search/tweets', $params)->statuses;
-		$geo_tweet = (array)$geo_tweet;
+		$tweet_all_info = $connection->get('search/tweets', $params)->statuses;
+		$tweet_all_info = (array)$tweet_all_info;
 		// echo('<pre>');
-		// var_dump($geo_tweet);
+		// var_dump($tweet_all_info);
 		// echo('</pre>');
-		return $geo_tweet;
+		return $tweet_all_info;
 	}
 
 ?>

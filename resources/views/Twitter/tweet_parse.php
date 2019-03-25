@@ -115,7 +115,7 @@ Class Tweet_Parse extends Twitter_TweetGet{
     protected function post_media_parse($tweets){
         $count = 0;
         foreach ($tweets as $tweet){
-            // メディアがビデオである場合はビデオURLを取得し、ループを抜ける
+            // メディアがビデオである場合は640×320のビデオURLを取得し、ループを抜ける
             // HACK: あまり綺麗なコードの書き方ではない
             if(!empty($tweet->extended_entities->media[0]->video_info->variants[0]->url)){
                 for($sub = 0; $sub <= 3; $sub++){
@@ -133,17 +133,23 @@ Class Tweet_Parse extends Twitter_TweetGet{
                                                 ->video_info
                                                 ->variants[$sub]
                                                 ->url;
-                            break;
+                            // ビデオを登録したら、後の配列データにあるそのツイートのpost_mediaを"None"にする   
+                            $post_media[$count][1] = "None";
+                            $post_media[$count][2] = "None";
+                            $post_media[$count][3] = "None";
+                            $count++;
+                            continue 2;
                         }
                     }
+                    if($sub >= 3){
+                        $post_media[$count][0] = "None";
+                        $post_media[$count][1] = "None";
+                        $post_media[$count][2] = "None";
+                        $post_media[$count][3] = "None";
+                        $count++;
+                        continue 2;
+                    }
                 }
-                // ビデオを登録したら、後の配列データにあるそのツイートのpost_mediaを"None"にする
-                $post_media[$count][1] = "None";
-                $post_media[$count][2] = "None";
-                $post_media[$count][3] = "None";
-
-                $count++;
-                continue;
             }
 
             // メディアがイメージである場合はイメージURLを投稿された総数(4枚まで)取得し、ループを抜ける
@@ -163,14 +169,14 @@ Class Tweet_Parse extends Twitter_TweetGet{
                         $post_media[$count][$sub] = "None";
                     }
                 }
-                // ビデオを登録したら、後の配列データにあるそのツイートのpost_mediaを"None"にする
+                // イメージを登録したら、後の配列データにあるそのツイートのpost_mediaを"None"にする
                 for(; $sub <= 3; $sub++){
                     $post_media[$count][$sub] = "None";
                 }
                 $count++;
                 continue;
             }
-            // ビデオURLがない場合、そのツイートのpost_mediaを全て"None"にする
+            // ビデオ・イメージURLが共にない場合、そのツイートのpost_mediaを全て"None"にする
             $post_media[$count][0] = "None";
             $post_media[$count][1] = "None";
             $post_media[$count][2] = "None";
@@ -208,9 +214,6 @@ Class Tweet_Parse extends Twitter_TweetGet{
         $count = 0;
         foreach ($tweets as $tweet){
             $hash_count = 0;
-            // print($count."<br>");
-            // print("【URL】<br><a href='".$this->url[$count]."' target='_blank'>".$this->url[$count]."</a><br>");
-            // print("<br>");
             if(strpos($tweet->text, "#") !== false){
                 // ハッシュタグがあるなら取得し、content文書から相当するハッシュタグを全てリンクに置き換える
                 foreach($tweet->entities->hashtags as $hashtag){
@@ -219,16 +222,9 @@ Class Tweet_Parse extends Twitter_TweetGet{
                     $content = $this->content[$count];
                     $this->content[$count] = str_replace("#".$hashtags[$count][$hash_count], $link_replace, $content);
 
-                    // print("#".$hashtags[$count][$hash_count]."<br>");
                     $hash_count++;
                 }
             }
-            // print("【ソース】<br>".$this->content[$count]."<br>");
-            // print("【Media】<br>");
-            // for($sub = 0; $sub <= 3; $sub++){
-            //     print("<a href='".$this->post_media[$count][$sub]."' target='_blank'>".$this->post_media[$count][$sub]."</a><br>");
-            // }
-            // print("<br>");
             $count++;
         }
         return $this->content;
@@ -250,7 +246,6 @@ Class Tweet_Parse extends Twitter_TweetGet{
             print($count."<br>");
             
             print("【URL】<br>");
-            // print("<a href='".$this->url[$count]."' target='_blank'>".$this->url[$count]."</a><br>");
 
             print("緯度：".$this->tweet_lat_lon[$count]['latitude']."<br>");
             print("経度：".$this->tweet_lat_lon[$count]['longitude']."<br>");

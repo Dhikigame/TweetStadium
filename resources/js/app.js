@@ -6,8 +6,12 @@
  */
 
 require('./bootstrap');
-
+// import router from './router'
 window.Vue = require('vue');
+import VueRouter from 'vue-router';
+import Home from './components/HomeComponent.vue';
+import Foo from './components/FooComponent.vue';
+import Bar from './components/BarComponent.vue';
 
 /**
  * The following block of code may be used to automatically register your
@@ -20,7 +24,12 @@ window.Vue = require('vue');
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('example-component', require('./components/ExampleComponent.vue').default);
+// Vue.component('example-component', require('./components/ExampleComponent.vue'));
+
+// home = Vue.component('home-component', require('./components/HomeComponent.vue').default);
+// foo = Vue.component('foo-component', require('./components/FooComponent.vue').default);
+// bar = Vue.component('bar-component', require('./components/BarComponent.vue').default);
+
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -29,9 +38,29 @@ Vue.component('example-component', require('./components/ExampleComponent.vue').
  */
 // Vue.component('hello-world-component', require('./components/HelloWorldComponent.vue'));
   
-var app = new Vue({
-    el: '#app',
-    data: {
-        name: 'Heゅhhmkljnhb'
-    }
-})
+Vue.use(VueRouter)
+
+// Components
+// const Home = { template: home }
+// const Foo  = { template: foo };
+// const Bar  = { template: bar };
+
+// Router
+const routes = [
+    { path: '/stadium/:id/index',    component: Home },
+    { path: '/stadium/:id/game', component: Foo },
+    { path: '/stadium/:id/comment', component: Bar },
+];
+
+const router = new VueRouter({
+    mode: 'history',
+    routes
+});
+
+const app = new Vue({
+    router
+}).$mount('#app');
+
+    // { path: '/',    component: require('./components/HomeComponent.vue') },
+    // { path: '/foo', component: require('./components/FooComponent.vue') },
+    // { path: '/bar', component: require('./components/BarComponent.vue') },

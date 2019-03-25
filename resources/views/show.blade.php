@@ -16,7 +16,6 @@
   <a href="{{ url('/') }}" class="header-menu">Back</a>
 </h1>
 
-
 @section('script')
 <link rel="stylesheet" href="/css/lity.css">
 <link rel="stylesheet" href="/css/luminous-basic.min.css">
@@ -33,6 +32,18 @@
 @endsection
 
 @section('content')
+
+<div id="app">
+  <nav>
+    <ul>
+      <router-link to="/stadium/{{ $stadium_post->id }}/index" exact>index</router-link>
+      <router-link to="/stadium/{{ $stadium_post->id }}/game">game</router-link>
+      <router-link to="/stadium/{{ $stadium_post->id }}/comment">comment</router-link>
+    </ul>
+  </nav>
+  <router-view></router-view>
+ </div>
+
   <h1>{{ $stadium_post->stadium }}</h1>
   <p>緯度：{{ $stadium_post->latitude }}</p>
   <p>経度：{{ $stadium_post->longitude }}</p>
@@ -41,9 +52,6 @@
     <div id="map" style="width:300px; height:300px"></div>
     <?php tweet_table($tweets); ?>
   </center>
-  <div id="app">
-    @{{ name }}
-  </div>
   <script src="/js/Luminous.min.js"></script>
   <script>
     var luminousTrigger = document.querySelectorAll('.zoomImg');

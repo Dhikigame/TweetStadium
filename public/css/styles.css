@@ -1,5 +1,47 @@
 .img-border img {
-    width: 150px;  /* 横幅を200pxに */
+    width: 150px;
     display: inline-block;
-    BORDER-RIGHT: #eee 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #eee 1px solid; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; BORDER-LEFT: #eee 1px solid; PADDING-TOP: 5px; BORDER-BOTTOM: #eee 1px solid; BACKGROUND-COLOR: #efefef
+    BORDER-RIGHT: #eee 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #eee 1px solid; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; BORDER-LEFT: #eee 1px solid; PADDING-TOP: 5px; BORDER-BOTTOM: #eee 1px solid; BACKGROUND-COLOR: #f4f3fd
 }
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+table th {
+    font-weight: normal; 
+    width: 250px;
+}
+.prof_img {
+    border-radius: 50px;
+}
+.screen_name {
+    font-size: 0.8em;
+    color: #e0dede;
+}
+.lat_lon {
+    font-size: 0.7em;
+}
+.source {
+    font-size: 0.8em;
+    color: #e6e6e6;
+}
+.source.instagram{
+    color: #979797;
+}
+.source.foursquare{
+    color: #ff9843;
+}
+.source.twitter{
+    color: #0099ff;
+}
+.video_button{
+    vertical-align: middle; 
+}
+.note{
+    font-size: 0.7em;
+    margin-top: 24px;
+}
+
+.router-link-active {
+    color: rgb(255, 0, 0);
+  }
