@@ -27,3 +27,5 @@ Route::get('/stadium/create', 'StadiumPostsController@create');
 
 Route::delete('/stadium/{id}', 'StadiumPostsController@destroy');
 
+Route::get('ajax/stadium', 'Ajax\StadiumController@index');
+

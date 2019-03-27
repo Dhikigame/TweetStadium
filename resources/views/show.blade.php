@@ -36,9 +36,9 @@
 <div id="app">
   <nav>
     <ul>
-      <router-link to="/stadium/{{ $stadium_post->id }}/index" exact>index</router-link>
-      <router-link to="/stadium/{{ $stadium_post->id }}/game">game</router-link>
-      <router-link to="/stadium/{{ $stadium_post->id }}/comment">comment</router-link>
+      <router-link :to="{ name: 'stadium' }" exact>index</router-link>
+      <router-link :to="{ name: 'game' }">game</router-link>
+      <router-link :to="{ name: 'comment' }">comment</router-link>
     </ul>
   </nav>
   <router-view></router-view>

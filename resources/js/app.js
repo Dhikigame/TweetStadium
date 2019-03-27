@@ -47,9 +47,9 @@ Vue.use(VueRouter)
 
 // Router
 const routes = [
-    { path: '/stadium/:id/index',    component: Home },
-    { path: '/stadium/:id/game', component: Foo },
-    { path: '/stadium/:id/comment', component: Bar },
+    { path: '/stadium/:id/index', name: 'stadium', component: Home},
+    { path: '/stadium/:id/game', name: 'game', component: Foo },
+    { path: '/stadium/:id/comment', name: 'comment', component: Bar },
 ];
 
 const router = new VueRouter({
@@ -58,8 +58,32 @@ const router = new VueRouter({
 });
 
 const app = new Vue({
+    // el: '#app',
+    // data: {
+    //     stadium: {}
+    // },
+    // mounted() {
+    //     var self = this;
+    //     var url = '/ajax/stadium';
+    //     axios.get(url).then(function(response){
+    //         self.stadium = response.data;
+    //         console.log(self.stadium);
+    //     });
+    // },
     router
 }).$mount('#app');
+
+// methods: {
+//     changeRouter () {
+//       this.$router.push({
+//         name: 'HogePage',
+//         params: {
+//           category: 'category_name',
+//           post_id: 123
+//         }
+//       })
+//     };
+//   }
 
     // { path: '/',    component: require('./components/HomeComponent.vue') },
     // { path: '/foo', component: require('./components/FooComponent.vue') },
