@@ -1,7 +1,7 @@
 <template>
     <div class="col-md-8 col-md-offset-2">
         <li v-for="std in stadium">
-            <span>{{ std.latitude }},{{ std.longitude }}</span>
+            <span>{{ std.address }}</span>
         </li>
     </div>
 </template>

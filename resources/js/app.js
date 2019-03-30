@@ -9,9 +9,9 @@ require('./bootstrap');
 // import router from './router'
 window.Vue = require('vue');
 import VueRouter from 'vue-router';
-import Home from './components/HomeComponent.vue';
-import Foo from './components/FooComponent.vue';
-import Bar from './components/BarComponent.vue';
+import Stadium from './components/StadiumComponent.vue';
+import Lat_lon from './components/Lat_lonComponent.vue';
+import Address from './components/AddressComponent.vue';
 
 /**
  * The following block of code may be used to automatically register your
@@ -47,9 +47,9 @@ Vue.use(VueRouter)
 
 // Router
 const routes = [
-    { path: '/stadium/:id/index', name: 'stadium', component: Home},
-    { path: '/stadium/:id/game', name: 'game', component: Foo },
-    { path: '/stadium/:id/comment', name: 'comment', component: Bar },
+    { path: '/stadium/:id/stadium', name: 'stadium', component: Stadium},
+    { path: '/stadium/:id/lat_lon', name: 'lat_lon', component: Lat_lon },
+    { path: '/stadium/:id/address', name: 'address', component: Address },
 ];
 
 const router = new VueRouter({
