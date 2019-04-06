@@ -18,7 +18,6 @@
 
 @section('script')
 <link rel="stylesheet" href="/css/lity.css">
-<link rel="stylesheet" href="/css/luminous-basic.min.css">
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
 <script src="/js/lity.js"></script>
@@ -33,14 +32,14 @@
 
 @section('content')
 
-<div id="app">
-  <nav>
-    <ul>
-      <router-link :to="{ name: 'stadium' }" exact>stadium</router-link>
-      <router-link :to="{ name: 'lat_lon' }">lat_lon</router-link>
-      <router-link :to="{ name: 'address' }">address</router-link>
-    </ul>
-  </nav>
+  <div id="app">
+    <nav>
+      <ul>
+        <router-link :to="{ name: 'stadium', params: { id: {{ $stadium_post->id }} }}" exact>stadium</router-link>
+        <router-link :to="{ name: 'lat_lon' }">lat_lon</router-link>
+        <router-link :to="{ name: 'address' }">address</router-link>
+      </ul>
+    </nav>
   <router-view></router-view>
  </div>
 
@@ -49,7 +48,7 @@
   <p>経度：{{ $stadium_post->longitude }}</p>
   <p>アドレス：{{ $stadium_post->address }}</p>
   <center>
-    <div id="map" style="width:300px; height:300px"></div>
+  <div id="map" style="width:300px; height:300px"></div>
     <?php tweet_table($tweets); ?>
   </center>
   <script src="/js/Luminous.min.js"></script>
