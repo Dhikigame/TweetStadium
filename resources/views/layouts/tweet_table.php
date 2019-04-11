@@ -5,7 +5,7 @@ function tweet_table($tweet){
     <div class="alt-table-responsive">
         <table class="table table-bordered">
             <tbody>
-                <tr>
+                <tr class='col-xs-4 col-sm-4'>
                     <th rowspan="3">
                         <?php echo "<a href='https://twitter.com/".$tweet['screen_name'][$count]."' target='_blank'><img class='prof_img' src=" . $tweet['prof_img'][$count] . "></a>" ?><br>
                         <?php echo "<a href='https://twitter.com/".$tweet['screen_name'][$count]."' target='_blank'>".$tweet['name'][$count]."</a>"; ?><br>
@@ -29,7 +29,7 @@ function tweet_table($tweet){
                         echo "<a class='source ".$source_color."' href='".$tweet['source'][$count]['url']."' target='_blank'>".$tweet['source'][$count]['name']."</a>"; 
                         ?>
                     </th>
-                    <td>
+                    <td class='col-xs-8 col-sm-8'> 
                     <?php 
                         if(strpos($tweet['url'][$count], "https://") !== false){
                             echo "<a href='".$tweet['url'][$count]."' target='_blank'>".$tweet['date'][$count]."</a>";
@@ -39,12 +39,12 @@ function tweet_table($tweet){
                     ?>
                     </td>
                 </tr>
-                <tr>
+                <tr class='col-xs-8 col-sm-8'>
                     <td>
                         <?php echo $tweet['content'][$count]; ?>
                     </td>
-                    </tr>
-                <tr>
+                </tr>
+                <tr class='col-xs-8 col-sm-8'>
                     <td class='video_button'>
                         <?php 
                             require("media/post_media_view.php");

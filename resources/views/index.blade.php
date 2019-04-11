@@ -1,14 +1,11 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="utf-8">
-  <title>プロ野球球場一覧</title>
-</head>
-<body>
+@extends('layouts.default')
+  
+  @section('title', 'プロ野球球場一覧')
+
+  @section('content')
   <h3>
     <a href="{{ url('/stadium/create') }}">New Stadium</a>
   </h3>
-  <div class="container">
     <h1>プロ野球球場一覧</h1>
     <ul>
         @forelse ($stadium_posts as $stadium_post)
@@ -49,6 +46,5 @@
         @endforelse
     </ul>
   </div>
-</body>
 <script src="/js/delete.js"></script>
-</html>
+@endsection

@@ -3,6 +3,9 @@
     display: inline-block;
     BORDER-RIGHT: #eee 1px solid; PADDING-RIGHT: 5px; BORDER-TOP: #eee 1px solid; PADDING-LEFT: 5px; PADDING-BOTTOM: 5px; BORDER-LEFT: #eee 1px solid; PADDING-TOP: 5px; BORDER-BOTTOM: #eee 1px solid; BACKGROUND-COLOR: #f4f3fd
 }
+body {
+    margin: 0px;
+}
 table {
     table-layout: fixed;
     width: 100%;

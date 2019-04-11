@@ -12,9 +12,9 @@
 */
 Route::get('/', 'StadiumPostsController@index');
 
-Route::get('/stadium/{id}/lat_lon', 'StadiumPostsController@show')->where('id', '[0-9]+');
-Route::get('/stadium/{id}/address', 'StadiumPostsController@show')->where('id', '[0-9]+');
-Route::get('/stadium/{id}/stadium', 'StadiumPostsController@show')->where('id', '[0-9]+');
+Route::get('/stadium/{id}/game', 'StadiumPostsController@show')->where('id', '[0-9]+');
+Route::get('/stadium/{id}/comment', 'StadiumPostsController@show')->where('id', '[0-9]+');
+Route::get('/stadium/{id}/info', 'StadiumPostsController@show')->where('id', '[0-9]+');
 
 // Route::get('/stadium/{id}', 'StadiumPostsController@show')->where('id', '[0-9]+');
 

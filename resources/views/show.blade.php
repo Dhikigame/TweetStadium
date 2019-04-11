@@ -2,6 +2,7 @@
 @include('Twitter.TweetGet')
 @include('php_js.json_decode')
 @include('layouts.tweet_table')
+@include('is_mobile.is_mobile')
 
 @section('title', $stadium_post->stadium)
 <?php 
@@ -32,21 +33,40 @@
 
 @section('content')
 
-  <div id="app">
-    <nav>
-      <ul>
-        <router-link :to="{ name: 'stadium', params: { id: {{ $stadium_post->id }} }}" exact>stadium</router-link>
-        <router-link :to="{ name: 'lat_lon' }">lat_lon</router-link>
-        <router-link :to="{ name: 'address' }">address</router-link>
-      </ul>
-    </nav>
-  <router-view></router-view>
- </div>
+<div class="row"> 
+  <h1 class='col-xs-12 col-sm-12'>{{ $stadium_post->stadium }}</h1>
+</div>
 
-  <h1>{{ $stadium_post->stadium }}</h1>
-  <p>緯度：{{ $stadium_post->latitude }}</p>
-  <p>経度：{{ $stadium_post->longitude }}</p>
-  <p>アドレス：{{ $stadium_post->address }}</p>
+
+  <div id="app">
+    <div class="row">
+      <div class='col-xs-4 col-sm-4'>
+        <router-link :to="{ name: 'info', params: { id: {{ $stadium_post->id }} }}" exact>  
+          <button type="button" class="btn btn-block btn-outline-primary">
+            Stadium Information
+          </button>
+        </router-link>
+      </div>
+      
+
+      <div class='col-xs-4 col-sm-4'>
+        <router-link :to="{ name: 'game' }">
+          <button type="button" class="btn btn-block btn-outline-success">
+            Game Progress
+          </button>
+        </router-link>
+      </div>
+
+      <div class='col-xs-4 col-sm-4'>
+        <router-link :to="{ name: 'comment' }">
+          <button type="button" class="btn btn-block btn-outline-danger">
+            Comments
+          </button>
+        </router-link>
+      </div>
+    </div>
+    <router-view></router-view>
+  </div>
   <center>
   <div id="map" style="width:300px; height:300px"></div>
     <?php tweet_table($tweets); ?>
