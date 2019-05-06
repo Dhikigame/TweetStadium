@@ -6,9 +6,9 @@
  */
 
 require('./bootstrap');
-// import router from './router'
 window.Vue = require('vue');
 import VueRouter from 'vue-router';
+
 import Info from './components/InfoComponent.vue';
 import Game from './components/GameComponent.vue';
 import Comment from './components/CommentComponent.vue';
@@ -40,11 +40,6 @@ import Comment from './components/CommentComponent.vue';
   
 Vue.use(VueRouter)
 
-// Components
-// const Home = { template: home }
-// const Foo  = { template: foo };
-// const Bar  = { template: bar };
-
 // Router
 const routes = [
     { path: '/stadium/:id/info', name: 'info', component: Info},
@@ -57,34 +52,6 @@ const router = new VueRouter({
     routes
 });
 
-const app = new Vue({
-    // el: '#app',
-    // data: {
-    //     stadium: {}
-    // },
-    // mounted() {
-    //     var self = this;
-    //     var url = '/ajax/stadium';
-    //     axios.get(url).then(function(response){
-    //         self.stadium = response.data;
-    //         console.log(self.stadium);
-    //     });
-    // },
+new Vue({
     router
 }).$mount('#app');
-
-// methods: {
-//     changeRouter () {
-//       this.$router.push({
-//         name: 'HogePage',
-//         params: {
-//           category: 'category_name',
-//           post_id: 123
-//         }
-//       })
-//     };
-//   }
-
-    // { path: '/',    component: require('./components/HomeComponent.vue') },
-    // { path: '/foo', component: require('./components/FooComponent.vue') },
-    // { path: '/bar', component: require('./components/BarComponent.vue') },

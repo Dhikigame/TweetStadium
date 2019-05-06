@@ -44,7 +44,10 @@ table th {
     font-size: 0.7em;
     margin-top: 24px;
 }
-
 .router-link-active {
     color: rgb(255, 0, 0);
-  }
+}
+.comment_date{
+    font-size: 0.7em;
+    align-items: center;
+}

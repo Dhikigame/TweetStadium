@@ -41,15 +41,6 @@
   <div id="app">
     <div class="row">
       <div class='col-xs-4 col-sm-4'>
-        <router-link :to="{ name: 'info', params: { id: {{ $stadium_post->id }} }}" exact>  
-          <button type="button" class="btn btn-block btn-outline-primary">
-            Stadium Information
-          </button>
-        </router-link>
-      </div>
-      
-
-      <div class='col-xs-4 col-sm-4'>
         <router-link :to="{ name: 'game' }">
           <button type="button" class="btn btn-block btn-outline-success">
             Game Progress
@@ -58,14 +49,41 @@
       </div>
 
       <div class='col-xs-4 col-sm-4'>
-        <router-link :to="{ name: 'comment' }">
+        <router-link :to="{ name: 'info', params: { id: {{ $stadium_post->id }} }}" exact>  
+          <button type="button" class="btn btn-block btn-outline-primary">
+            Stadium Information
+          </button>
+        </router-link>
+      </div>
+
+      <div class='col-xs-4 col-sm-4'>
+        <router-link :to="{ name: 'comment', params: { id: {{ $stadium_post->id }} }}">
           <button type="button" class="btn btn-block btn-outline-danger">
             Comments
           </button>
         </router-link>
       </div>
     </div>
+    
     <router-view></router-view>
+
+    <div id="comment_validate">
+      <form method="post" action="{{ action('CommentsController@store', $stadium_post->id) }}">
+        {{ csrf_field() }}
+        <p>
+          <!-- <input type="text" name="body" v-model="typedText" placeholder="一言コメント" value="{{ old('body') }}">
+          <form-component></form-component> -->
+          <input type="text" name="body" placeholder="一言コメント" value="{{ old('body') }}">
+          @if ($errors->has('body'))
+          <span class="error text-danger">{{ $errors->first('body') }}</span>
+          @endif
+        </p>
+        <p>
+          <input type="submit" value="ADD">
+        </p>
+      </form>
+    </div>
+
   </div>
   <center>
   <div id="map" style="width:300px; height:300px"></div>
@@ -76,8 +94,5 @@
     var luminousTrigger = document.querySelectorAll('.zoomImg');
     new LuminousGallery(luminousTrigger);
   </script>
-
+  <!-- <script src="{{ mix('js/comment_validate.js') }}"></script> -->
 @endsection
-<?php
-
-?>

@@ -55,7 +55,7 @@ Class Twitter_TweetGet{
         $tweet_parse = new Tweet_Parse($this->tweet);
         // ユーザ名
         $this->tweet_parse_store['name'] = $tweet_parse->name_parse($this->tweet);
-        //ユーザID
+        // ユーザID
         $this->tweet_parse_store['screen_name'] = $tweet_parse->screen_name_parse($this->tweet);
         // プロフィール画像
         $this->tweet_parse_store['prof_img'] = $tweet_parse->prof_img_parse($this->tweet);
@@ -80,8 +80,8 @@ Class Twitter_TweetGet{
     // パースした情報を編集
     public function adjust_parse(){
         require_once "tweet_adjust.php";
-        // echo $this->tweet_parse_store['source'][1];
         $this->tweet_parse_store['source'] = source_adjust($this->tweet_parse_store['source']);
+        $this->tweet_parse_store['content'] = content_adjust($this->tweet_parse_store['content']);
     }
 
     // ツイート取得

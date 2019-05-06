@@ -1768,17 +1768,43 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
-      stadium: {}
+      comments: [],
+      id: this.$route.params.id
     };
+  },
+  computed: {
+    Comments: function Comments() {
+      var self = this;
+      var count = 0; //時系列で新しい順にコメント出力する
+
+      self.comments.reverse(); // スタジアムのIDと一致したコメントを出力
+      // コメント総数100件まで
+
+      return self.comments.filter(function (comment) {
+        if (comment.comment_id == self.id && count < 100) {
+          count++;
+          return true;
+        }
+      });
+    }
   },
   mounted: function mounted() {
     var self = this;
-    var url = '/ajax/stadium';
+    var url = '/ajax/comment';
     axios.get(url).then(function (response) {
-      self.stadium = response.data;
+      self.comments = response.data;
     });
   }
 });
@@ -36896,18 +36922,28 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
+    _c("h3", [_vm._v("みんなのコメント")]),
+    _vm._v(" "),
+    _c(
+      "ul",
+      _vm._l(_vm.Comments, function(comment) {
+        return _c("li", { key: comment.id }, [
+          _vm._v(
+            "\n                    " +
+              _vm._s(comment.body) +
+              " \n                    "
+          ),
+          _c("span", { staticClass: "comment_date" }, [
+            _vm._v("(" + _vm._s(comment.created_at) + ")")
+          ])
+        ])
+      }),
+      0
+    )
+  ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "col-md-8 col-md-offset-2" }, [
-      _c("span", [_vm._v("みんなのコメント")])
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 
@@ -51741,8 +51777,7 @@ __webpack_require__.r(__webpack_exports__);
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
  */
-__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js"); // import router from './router'
-
+__webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
 
 window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
 
@@ -51770,11 +51805,7 @@ window.Vue = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.
  */
 // Vue.component('hello-world-component', require('./components/HelloWorldComponent.vue'));
 
-Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]); // Components
-// const Home = { template: home }
-// const Foo  = { template: foo };
-// const Bar  = { template: bar };
-// Router
+Vue.use(vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]); // Router
 
 var routes = [{
   path: '/stadium/:id/info',
@@ -51794,33 +51825,8 @@ var router = new vue_router__WEBPACK_IMPORTED_MODULE_0__["default"]({
   routes: routes
 });
 var app = new Vue({
-  // el: '#app',
-  // data: {
-  //     stadium: {}
-  // },
-  // mounted() {
-  //     var self = this;
-  //     var url = '/ajax/stadium';
-  //     axios.get(url).then(function(response){
-  //         self.stadium = response.data;
-  //         console.log(self.stadium);
-  //     });
-  // },
   router: router
-}).$mount('#app'); // methods: {
-//     changeRouter () {
-//       this.$router.push({
-//         name: 'HogePage',
-//         params: {
-//           category: 'category_name',
-//           post_id: 123
-//         }
-//       })
-//     };
-//   }
-// { path: '/',    component: require('./components/HomeComponent.vue') },
-// { path: '/foo', component: require('./components/FooComponent.vue') },
-// { path: '/bar', component: require('./components/BarComponent.vue') },
+}).$mount('#app');
 
 /***/ }),
 

@@ -30,8 +30,15 @@
     @endif
   </p>
   <p>
-    リーグ
-    <input type="text" name="league" placeholder="enter league" value="{{ old('league') }}">
+    リーグ・所属
+    <!-- <input type="text" name="league" placeholder="enter league" value="{{ old('league') }}"> -->
+      <select type="text" name="league" placeholder="enter league" value="{{ old('league') }}">
+        <option value="プロ野球">プロ野球</option>
+        <option value="Jリーグ">Jリーグ</option>
+        <option value="Bリーグ">Bリーグ</option>
+        <option value="MLB">MLB</option>
+        <option value="その他">その他</option>
+      </select>
     @if ($errors->has('league'))
     <span class="error">{{ $errors->first('league') }}</span>
     @endif
@@ -45,7 +52,17 @@
   </p>
   <p>
     国
-    <input type="text" name="country" placeholder="enter country" value="{{ old('country') }}">
+    <!-- <input type="text" name="country" placeholder="enter country" value="{{ old('country') }}"> -->
+      <select type="text" name="country" placeholder="enter country" value="{{ old('country') }}">
+        <option value="Japan">Japan</option>
+        <option value="United States">United States</option>
+        <option value="Germany">Germany</option>
+        <option value="United Kingdom">United Kingdom</option>
+        <option value="Italy">Italy</option>
+        <option value="China">China</option>
+        <option value="South Korea">South Korea</option>
+        <option value="Taiwan">Taiwan</option>
+      </select>
     @if ($errors->has('country'))
     <span class="error">{{ $errors->first('country') }}</span>
     @endif

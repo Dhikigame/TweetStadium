@@ -11,4 +11,10 @@ function source_adjust($sources){
     return $source_store;
 }
 
+function content_adjust($content){
+
+    return str_replace('<br>', ' ', $content);;
+}
+
+
 ?>
