@@ -10,67 +10,19 @@ use Goutte\Client;
 class GameNewsController extends Controller
 {
 
-    // public function baseball_parse(){
-    //     echo "okooo";
-    // }
-
     public function baseball() {
-
-        // // Google 検索 URL フォーマット
-        // $url_format = 'https://www.google.co.jp/search?q=%query%&num=%num%';
-
-        // // キーワード
-        // $keyword = 'カレンダー 人気';
-
-        // // キーワードのURLエンコード、SERPs の取得件数をセット
-        // $replace = [urlencode($keyword), 100];
-        // $search = ['%query%', '%num%'];
-        
-        // // 実際にアクセスする URL
-        // $url = str_replace($search, $replace, $url_format);
-
-        // // Goutte ライブラリの事前準備
-        // $client = new Client();
-
-        // // Https 関連でエラーが発生する場合があるので、チェックしないように設定
-        // $guzzleClient = new \GuzzleHttp\Client(['verify' => false]);
-        // $client->setClient($guzzleClient);
-
-        // $result = [];
-
-        // // 検索結果の取得
-        // $crawler = $client->request('GET', $url);
-
-        // $crawler->filter('div.g')->each(function($node) use(&$result) {
-        //     if (count($node->filter('a')) !== 0 && count($node->filter('h3')) !== 0) {
-        //         $href = $node->filter('a')->attr('href');
-        //         if (preg_match('/url\?/', $href)) {
-        //             $info = [];
-        //             $info['title'] = $node->filter('h3')->text();
-
-        //             preg_match('(https?://[-_.!~*\'()a-zA-Z0-9;/?:@=+$,%#]+)', $href, $match);
-        //             $info['url'] = urldecode($match[0]);
-        //             $result[] = $info;
-                    
-        //         }
-        //     }
-        // });
-
-        // $date = date("Ymd");
-
-        // return $result;
 
         // Goutte ライブラリの事前準備
         $client = new Client();
 
         // $date = date("Ymd", strtotime('-1 day', time()));
-        $date = date("Ymd");
+        $date = date("20190521");
 
         // Https 関連でエラーが発生する場合があるので、チェックしないように設定
         $guzzleClient = new \GuzzleHttp\Client(['verify' => false]);
         $client->setClient($guzzleClient);
 
-        $crawler_baseball_1 = $client->request('GET', "https://baseball.yahoo.co.jp/npb/game/".$date."01/top");
+        $crawler_baseball_1 = $client->request('GET', "https://baseball.yahoo.co.jp/npb/game/".$date."04/top");
         $crawler_baseball_2 = $client->request('GET', "https://baseball.yahoo.co.jp/npb/game/".$date."02/top");
         $crawler_baseball_3 = $client->request('GET', "https://baseball.yahoo.co.jp/npb/game/".$date."03/top");
         $crawler_baseball_4 = $client->request('GET', "https://baseball.yahoo.co.jp/npb/game/".$date."04/top");
@@ -78,156 +30,173 @@ class GameNewsController extends Controller
         $crawler_baseball_6 = $client->request('GET', "https://baseball.yahoo.co.jp/npb/game/".$date."06/top");
 
         $crawler_baseball_1->filter('html')->each(function($node) {  
-            $title = $node->text();
-            if(strpos($title,'エラー') === false){
-                // baseball_parse($crawler_baseball1);
-                // echo $node->text();
-                echo "【1】<br>";
-                /***  TODO:試合開始前と開始後の分岐処理  ***/
-                // if( == ""){
+            $title = $node->filter('title')->text();
+            echo "<br>【1】<br>";
 
-                // }
-                    $node->filter('div#gm_ibd')->filter('div#yjSNLivescoreboard')->each(function($node) {
+            if(strpos($title,'エラー') === false){
+                /*  試合情報が存在している場合の処理  */
+                echo "if" . "<br>";
+                $opponent = $node->filter('div.gamecard')->text();
+                echo $opponent . "<br>";
+
+                /*  試合速報中・試合終了  */
+                if(strpos($opponent,'vs.') === false){
+                    echo "ifif" . "<br>";
+                     $team_inning = $node->filter('div#gm_ibd')->filter('div#yjSNLivescoreboard')->each(function($node) {
+                        // 先攻・後攻チーム取得
                         $ahead_team = $node->filter('tr#tb1')->filter('th')->text();
                         echo $ahead_team . "<br>";
                         $rear_team = $node->filter('tr#tb2')->filter('th')->text();
                         echo $rear_team . "<br>";
-                    });
-                    $node->filter('div.column-center')->each(function($node) {
-                        $inning = $node->filter('em')->text();
-                        echo $inning . "<br>";
-                        $stadium_gamestart = $node->filter('p.stadium')->text();
-                        $stadium = substr($stadium_gamestart, 0, -6);
-                        echo $stadium . "<br>";
-                        $game_start = substr($stadium_gamestart, -6);
-                        echo $game_start . "<br>";
-                    });
-            }
-        });
-        $crawler_baseball_2->filter('html')->each(function($node) {  
-            $title = $node->text();
-            if(strpos($title,'エラー') === false){
-                // baseball_parse($crawler_baseball1);
-                // echo $node->text();
-                echo "【2】<br>";
-                $node->filter('div#gm_ibd')->filter('div#yjSNLivescoreboard')->each(function($node) {
-                    $ahead_team = $node->filter('tr#tb1')->filter('th')->text();
-                    echo $ahead_team . "<br>";
-                    $rear_team = $node->filter('tr#tb2')->filter('th')->text();
-                    echo $rear_team . "<br>";
-                });
-                $node->filter('div.column-center')->each(function($node) {
-                    $inning = $node->filter('em')->text();
-                    echo $inning . "<br>";
-                    $stadium_gamestart = $node->filter('p.stadium')->text();
-                    $stadium = substr($stadium_gamestart, 0, -6);
-                    echo $stadium . "<br>";
-                    $game_start = substr($stadium_gamestart, -6);
-                    echo $game_start . "<br>";
-                });
-            }
-        });
-        $crawler_baseball_3->filter('html')->each(function($node) {  
-            $title = $node->text();
-            if(strpos($title,'エラー') === false){
-                // baseball_parse($crawler_baseball1);
-                // echo $node->text();
-                echo "【3】<br>";
-                $node->filter('div#gm_ibd')->filter('div#yjSNLivescoreboard')->each(function($node) {
-                    $ahead_team = $node->filter('tr#tb1')->filter('th')->text();
-                    echo $ahead_team . "<br>";
-                    $rear_team = $node->filter('tr#tb2')->filter('th')->text();
-                    echo $rear_team . "<br>";
-                });
-                $node->filter('div.column-center')->each(function($node) {
-                    $inning = $node->filter('em')->text();
-                    echo $inning . "<br>";
-                    $stadium_gamestart = $node->filter('p.stadium')->text();
-                    $stadium = substr($stadium_gamestart, 0, -6);
-                    echo $stadium . "<br>";
-                    $game_start = substr($stadium_gamestart, -6);
-                    echo $game_start . "<br>";
-                });
-            }
-        });
-        $crawler_baseball_4->filter('html')->each(function($node) {  
-            $title = $node->text();
-            if(strpos($title,'エラー') === false){
-                // baseball_parse($crawler_baseball1);
-                // echo $node->text();
-                echo "【4】<br>";
-                $node->filter('div#gm_ibd')->filter('div#yjSNLivescoreboard')->each(function($node) {
-                    $ahead_team = $node->filter('tr#tb1')->filter('th')->text();
-                    echo $ahead_team . "<br>";
-                    $rear_team = $node->filter('tr#tb2')->filter('th')->text();
-                    echo $rear_team . "<br>";
-                });
-                $node->filter('div.column-center')->each(function($node) {
-                    $inning = $node->filter('em')->text();
-                    echo $inning . "<br>";
-                    $stadium_gamestart = $node->filter('p.stadium')->text();
-                    $stadium = substr($stadium_gamestart, 0, -6);
-                    echo $stadium . "<br>";
-                    $game_start = substr($stadium_gamestart, -6);
-                    echo $game_start . "<br>";
-                });
-            }
-        });
-        $crawler_baseball_5->filter('html')->each(function($node) {  
-            $title = $node->text();
-            if(strpos($title,'エラー') === false){
-                // baseball_parse($crawler_baseball1);
-                // echo $node->text();
-                echo "【5】<br>";
-                $node->filter('div#gm_ibd')->filter('div#yjSNLivescoreboard')->each(function($node) {
-                    $ahead_team = $node->filter('tr#tb1')->filter('th')->text();
-                    echo $ahead_team . "<br>";
-                    $rear_team = $node->filter('tr#tb2')->filter('th')->text();
-                    echo $rear_team . "<br>";
-                });
-                $node->filter('div.column-center')->each(function($node) {
-                    $inning = $node->filter('em')->text();
-                    echo $inning . "<br>";
-                    $stadium_gamestart = $node->filter('p.stadium')->text();
-                    $stadium = substr($stadium_gamestart, 0, -6);
-                    echo $stadium . "<br>";
-                    $game_start = substr($stadium_gamestart, -6);
-                    echo $game_start . "<br>";
-                });
-            }
-        });
-        $crawler_baseball_6->filter('html')->each(function($node) {  
-            $title = $node->text();
-            if(strpos($title,'エラー') === false){
-                // baseball_parse($crawler_baseball1);
-                // echo $node->text();
-                echo "【6】<br>";
-                $node->filter('div#gm_ibd')->filter('div#yjSNLivescoreboard')->each(function($node) {
-                    $ahead_team = $node->filter('tr#tb1')->filter('th')->text();
-                    echo $ahead_team . "<br>";
-                    $rear_team = $node->filter('tr#tb2')->filter('th')->text();
-                    echo $rear_team . "<br>";
-                });
-                $node->filter('div.column-center')->each(function($node) {
-                    $inning = $node->filter('em')->text();
-                    echo $inning . "<br>";
-                    $stadium_gamestart = $node->filter('p.stadium')->text();
-                    $stadium = substr($stadium_gamestart, 0, -6);
-                    echo $stadium . "<br>";
-                    $game_start = substr($stadium_gamestart, -6);
-                    echo $game_start . "<br>";
-                });
-            }
-        });
-                // // Create Goutte Object
-                // $client = new Client();
 
-                // // Get Data Source
-                // $crawler = $client->request('GET', "http://www.nicosearch.info/history.php");
-        
-                // $crawler->filter('h1')->each(function ($node) {
-                //     echo $node->text() . "\n";
-                // });
+                        // イニング毎の得点取得
+                        // 先攻チームのイニング毎の得点
+                        $inning_ahead = $node->filter('tr#tb1')->filter('td')->each(function($node) {
+                            if(count($node)){
+                                $inning_ahead[0] = $node->eq(0)->text();
+                                $inning_ahead[1] = $node->eq(0)->attr('class');
+                                return $inning_ahead;
+                            }
+                        });
+                                                
+                        // 後攻チームのイニング毎の得点
+                        $inning_rear = $node->filter('tr#tb2')->filter('td')->each(function($node) {
+                            if(count($node)){
+                                $inning_rear[0] = $node->eq(0)->text();
+                                $inning_rear[1] = $node->eq(0)->attr('class');
+                                return $inning_rear;
+                            }
+                        });
+
+                        $team_inning[0] = $ahead_team;
+                        $team_inning[1] = $rear_team;
+                        $team_inning[2] = $inning_ahead;
+                        $team_inning[3] = $inning_rear;
+
+                        echo "(先)" . $team_inning[0] . " | " . $team_inning[1] . "(後)<br>";
+                        for($i = 0; $i < count($team_inning[2]); $i++){
+                                echo $i + 1 . $team_inning[2][$i][1] . "：" . $team_inning[2][$i][0] . "|" . $team_inning[3][$i][0] . "<br>";
+                        }
+
+                        return $team_inning;
+                    });
+                    $game_info = $node->filter('div.column-center')->each(function($node) {
+                        /*  試合速報中  */
+                        if(strpos($node->text(),'試合終了') === false){
+                            echo "ififif" . "<br>";
+                            if(count($node->filter('a'))){
+                                $progress = $node->filter('a')->text();
+                                echo $progress ."<br>";
+                            }
+                        
+                            if(count($node->filter('p.stadium'))){
+                                if(strpos($node->filter('p.stadium')->text(),'札幌ドーム') !== false){
+                                    $gamestart = $node->filter('p.stadium')->text();
+                                    $gamestart = mb_substr($gamestart, -6, 5);
+    
+                                    $stadium = $node->filter('p.stadium')->text();
+                                    $stadium = mb_substr($stadium, 0, -6);
+                                 }else{
+                                    $gamestart = $node->filter('p.stadium')->text();
+                                    $gamestart = substr($gamestart, -7, 5);
+    
+                                    $stadium = $node->filter('p.stadium')->text();
+                                    $stadium = substr($stadium, 0, -7);
+                                 }
+                                echo $gamestart ."<br>";
+                                echo $stadium . "<br>";  
+                            }
+                        }
+                        /*  試合終了後  */
+                        else{
+                            echo "ififelse" . "<br>";
+                            if(count($node->filter('em'))){
+                                $progress = $node->filter('em')->text();
+                                echo $progress ."<br>";
+                            }
+
+                            if(count($node->filter('p.stadium'))){
+                                if(strpos($node->filter('p.stadium')->text(),'札幌ドーム') !== false){
+                                    $gamestart = $node->filter('p.stadium')->text();
+                                    $gamestart = mb_substr($gamestart, -6, 5);
+    
+                                    $stadium = $node->filter('p.stadium')->text();
+                                    $stadium = mb_substr($stadium, 0, -6);
+                                 }else{
+                                    $gamestart = $node->filter('p.stadium')->text();
+                                    $gamestart = substr($gamestart, -6, 5);
+    
+                                    $stadium = $node->filter('p.stadium')->text();
+                                    $stadium = substr($stadium, 0, -6);
+                                 }
+                                 echo $gamestart ."<br>";
+                                 echo $stadium . "<br>"; 
+                            }
+                        }
+                        $game_info[0] = $progress;
+                        $game_info[1] = $stadium;
+                        $game_info[2] = $gamestart;
+
+                        return $game_info;
+                    });
+                }
+                /*  試合開始前  */
+                else{
+                    echo "ifelse" . "<br>";
+                    $team_inning = $node->filter('div#yjSNLiveGamecard')->filter('div#gm_match')->each(function($node) {
+                        $team_inning = $node->filter('div.gamecard')->each(function($node) {
+                            $ahead_team = $node->filter('div.column-left')->filter('a')->attr('title');
+                            echo $ahead_team . "<br>";
+                            $rear_team = $node->filter('div.column-right')->filter('a')->attr('title');
+                            echo $rear_team . "<br>";
+
+                            $team_inning[0] = $ahead_team;
+                            $team_inning[1] = $rear_team;
+
+                            return $team_inning;
+                        });
+
+                        $game_info = $node->filter('div.column-center')->each(function($node) {
+                            if(count($node->filter('p.inning'))){
+                                $progress = $node->filter('p.inning')->text();
+                            }
+                            echo $progress ."<br>";
+
+                            if(count($node->filter('p.stadium'))){
+                                if(strpos($node->filter('p.stadium')->text(),'札幌ドーム') !== false){
+                                    $gamestart = $node->filter('p.stadium')->text();
+                                    $gamestart = mb_substr($gamestart, -6, 5);
+    
+                                    $stadium = $node->filter('p.stadium')->text();
+                                    $stadium = mb_substr($stadium, 0, -6);
+                                 }else{
+                                    $gamestart = $node->filter('p.stadium')->text();
+                                    $gamestart = substr($gamestart, -6, 5);
+    
+                                    $stadium = $node->filter('p.stadium')->text();
+                                    $stadium = substr($stadium, 0, -6);
+                                 }
+                            }
+                            echo $gamestart . "<br>";
+                            echo $stadium . "<br>";
+
+                            $game_info[0] = $progress;
+                            $game_info[1] = $stadium;
+                            $game_info[2] = $gamestart;
+
+                            return $game_info;
+                        });
+                    });
+                }
+            }
+            /*  試合情報が存在しない場合  */
+            else{
+                echo "試合がありません";
+                $error = 1;
+            }
+        });
+
+
 
     }
 }
