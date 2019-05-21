@@ -43,7 +43,8 @@
         "classmap": [
             "database/seeds",
             "database/factories",
-            "public/php_js"
+            "public/php_js",
+            "app/Http/Controllers/Ajax/baseball/common"
         ]
     },
     "autoload-dev": {

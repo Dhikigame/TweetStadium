@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\StadiumPost;
+use App\Http\Controllers\Ajax\GameNewsController;
 
 class StadiumPostsController extends Controller
 {
@@ -13,6 +14,12 @@ class StadiumPostsController extends Controller
     }
 
     public function show($id) {
+        $gameparse = new GameNewsController();
+        $gamepost = $gameparse->baseball();
+        // $called = app()->ajax()->make('GameNewsController');
+        // $baseball   = $called->baseball();
+        // var_dump($gamepost);
+
         $post = StadiumPost::findOrFail($id);
         return view('show')->with('stadium_post', $post);
     }
