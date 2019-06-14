@@ -51,3 +51,27 @@ table th {
     font-size: 0.7em;
     align-items: center;
 }
+
+.score_abst{
+    background: orange;
+    display: flex !important;
+    position: fixed !important;
+    width: 240px;
+    height: 80px;
+    top: 50px;
+    right: 0px;
+}
+
+.team_font{
+    font-weight: bolder;
+    font-size: 0.7em;
+}
+
+.score_font{
+    font-size: 1.5em;
+}
+
+.before_start_game_font{
+    font-weight: bolder;
+    font-size: 0.7em;
+}

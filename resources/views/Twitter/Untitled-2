@@ -1,4 +1,0 @@
-StadiumPostのajax用のリスト作成
-1. show.blade.phpからIDをapp.jsに送信
-2. GameComponent.vueにIDを受け取り、data()に格納
-3. 

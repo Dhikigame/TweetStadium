@@ -1,14 +1,18 @@
 @extends('layouts.default')
 @include('Twitter.TweetGet')
+@include('scoreboard.score_get')
 @include('php_js.json_decode')
 @include('layouts.tweet_table')
 @include('is_mobile.is_mobile')
 
-@section('title', $stadium_post->stadium)
+@section('title', $stadium_post[0]->stadium)
+
+<meta name="csrf-token" content="{{ csrf_token() }}">
+
 <?php 
   $lat_lon = [
-    'latitude' => $stadium_post->latitude,
-    'longitude' => $stadium_post->longitude
+    'latitude' => $stadium_post[0]->latitude,
+    'longitude' => $stadium_post[0]->longitude
   ];
   $tweets = tweetget($lat_lon);
 ?>
@@ -34,30 +38,28 @@
 @section('content')
 
 <div class="row"> 
-  <h1 class='col-xs-12 col-sm-12'>{{ $stadium_post->stadium }}</h1>
+  <h1 class='col-xs-12 col-sm-12'>{{ $stadium_post[0]->stadium }}</h1>
 </div>
 
+<?php 
+  // phpinfo();
+  echo var_dump($stadium_post) . "<br>";
+  scoreboard($stadium_post[1], $stadium_post[0]->stadium); 
+?>
 
   <div id="app">
     <div class="row">
-      <div class='col-xs-4 col-sm-4'>
-        <router-link :to="{ name: 'game' }">
-          <button type="button" class="btn btn-block btn-outline-success">
-            Game Progress
-          </button>
-        </router-link>
-      </div>
 
-      <div class='col-xs-4 col-sm-4'>
-        <router-link :to="{ name: 'info', params: { id: {{ $stadium_post->id }} }}" exact>  
+      <div class='col-xs-6 col-sm-6'>
+        <router-link :to="{ name: 'info', params: { id: {{ $stadium_post[0]->id }} }}" exact>  
           <button type="button" class="btn btn-block btn-outline-primary">
             Stadium Information
           </button>
         </router-link>
       </div>
 
-      <div class='col-xs-4 col-sm-4'>
-        <router-link :to="{ name: 'comment', params: { id: {{ $stadium_post->id }} }}">
+      <div class='col-xs-6 col-sm-6'>
+        <router-link :to="{ name: 'comment', params: { id: {{ $stadium_post[0]->id }} }}">
           <button type="button" class="btn btn-block btn-outline-danger">
             Comments
           </button>
@@ -68,8 +70,8 @@
     <router-view></router-view>
 
     <div id="comment_validate">
-      <form method="post" action="{{ action('CommentsController@store', $stadium_post->id) }}">
-        {{ csrf_field() }}
+      <form method="post" action="{{ action('CommentsController@store', $stadium_post[0]->id) }}">
+      @csrf
         <p>
           <!-- <input type="text" name="body" v-model="typedText" placeholder="一言コメント" value="{{ old('body') }}">
           <form-component></form-component> -->

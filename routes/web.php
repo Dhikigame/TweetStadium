@@ -12,9 +12,8 @@
 */
 Route::get('/', 'StadiumPostsController@index');
 
-Route::get('/stadium/{id}/info', 'StadiumPostsController@show')->where('id', '[0-9]+');
 Route::get('/stadium/{id}/comment', 'StadiumPostsController@show')->where('id', '[0-9]+');
-Route::get('/stadium/{id}/game', 'StadiumPostsController@show')->where('id', '[0-9]+');
+Route::get('/stadium/{id}/info', 'StadiumPostsController@show')->where('id', '[0-9]+');
 
 Route::get('/stadium/{id}/edit', 'StadiumPostsController@edit');
 

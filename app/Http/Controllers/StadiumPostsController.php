@@ -16,11 +16,10 @@ class StadiumPostsController extends Controller
     public function show($id) {
         $gameparse = new GameNewsController();
         $gamepost = $gameparse->baseball();
-        // $called = app()->ajax()->make('GameNewsController');
-        // $baseball   = $called->baseball();
         // var_dump($gamepost);
+        $post[0] = StadiumPost::findOrFail($id);
+        $post[1] = $gamepost;
 
-        $post = StadiumPost::findOrFail($id);
         return view('show')->with('stadium_post', $post);
     }
 

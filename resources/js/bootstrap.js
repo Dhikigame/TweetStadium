@@ -1,3 +1,4 @@
+window.Vue = require('vue')
 
 window._ = require('lodash');
 
@@ -37,6 +38,8 @@ if (token) {
 } else {
     console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
+
+Vue.prototype.$http = axios
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

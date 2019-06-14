@@ -16,14 +16,9 @@ class GameParse
             if(strpos($title,'エラー') === false){
                 /*  試合情報が存在している場合の処理  */
                 $opponent = $node->filter('div.gamecard')->text();
-                /* 試合が中止の場合 */
-                if(strpos($opponent,'中止') !== false){
-                    $game_bulletin[0] = null;
-                    $game_bulletin[1] = null;
-                    return $game_bulletin;
-                }
-                /*  試合速報中・試合終了  */
-                if(strpos($opponent,'vs.') === false){
+
+                /*  試合速報中・試合終了の場合  */
+                if(strpos($opponent,'vs.') === false && strpos($opponent,'中止') === false){
                      $team_inning = $node->filter('div#gm_ibd')->filter('div#yjSNLivescoreboard')->each(function($node) {
                         // 先攻・後攻チーム取得
                         $ahead_team = $node->filter('tr#tb1')->filter('th')->text();
@@ -111,7 +106,7 @@ class GameParse
                         return $game_info;
                     });
                 }
-                /*  試合開始前  */
+                /*  試合開始前・試合中止の場合  */
                 else{
                         $team_inning = $node->filter('div.gamecard')->each(function($node) {
                             $ahead_team = $node->filter('div.column-left')->filter('a')->attr('title');
@@ -125,8 +120,8 @@ class GameParse
                             return $team_inning;
                         });
                         $game_info = $node->filter('div.column-center')->eq(0)->each(function($node) {
-                            if(count($node->filter('p.inning'))){
-                                $progress = $node->filter('p.inning')->text();
+                            if(count($node->filter('em'))){
+                                $progress = $node->filter('em')->text();
                             }
 
                             if(count($node->filter('p.stadium'))){
@@ -158,8 +153,8 @@ class GameParse
                             }
 
                             $game_info[0] = $progress;
-                            $game_info[1] = $stadium;
-                            $game_info[2] = $gamestart;
+                            $game_info[1] = $gamestart;
+                            $game_info[2] = $stadium;
 
                             return $game_info;
                         });

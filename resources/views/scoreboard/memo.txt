@@ -1,0 +1,60 @@
+<div style="width:700px; background-color:#006600; padding:10px; margin:10px; border:5px solid #009900; ">
+    <div style="color:#ffffff; font-size:14px; padding:5px; ">
+        日付：2019年5月29日&nbsp; 場所：京セラ
+    </div>
+    <div style="color:#ffffff; font-size:14px; padding:5px; ">
+        試合種類：辰巳リーグ&nbsp; 対戦相手：オリックス
+    </div>
+    <table style="border-collapse:collapse; background-color:#006600; margin:0px auto; ">
+        <tr>
+            <td style="width:100px; color:#FFFFFF; text-align:center; font-size:14px;">
+                ＴＥＡＭ
+            </td>
+            <td style="width:35px; color:#FFFFFF; text-align:center; font-size:14px; ">１</td>
+            <td style="width:35px; color:#FFFFFF; text-align:center; font-size:14px; ">２</td>
+            <td style="width:35px; color:#FFFFFF; text-align:center; font-size:14px; ">３</td>
+            <td style="width:35px; color:#FFFFFF; text-align:center; font-size:14px; ">４</td>
+            <td style="width:35px; color:#FFFFFF; text-align:center; font-size:14px; ">５</td>
+            <td style="width:35px; color:#FFFFFF; text-align:center; font-size:14px; ">６</td>
+            <td style="width:35px; color:#FFFFFF; text-align:center; font-size:14px; ">７</td>
+            <td style="width:35px; color:#FFFFFF; text-align:center; font-size:14px; ">８</td>
+            <td style="width:35px; color:#FFFFFF; text-align:center; font-size:14px; ">９</td>
+            <td style="width:35px; color:#FFFFFF; text-align:center; font-size:14px; ">Ｒ</td>
+            <td style="width:35px; color:#FFFFFF; text-align:center; font-size:14px; ">Ｈ</td>
+            <td style="width:35px; color:#FFFFFF; text-align:center; font-size:14px; ">Ｅ</td>
+        </tr>
+        <tr>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">
+                オリックス
+            </td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">1</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">1</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">0</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">2</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">0</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">0</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">0</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">0</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">0</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">5</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">13</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">1</td>
+        </tr>
+        <tr>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">
+                港湾魂
+            </td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">0</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">1</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">1</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">0</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">0</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">0</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">0</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">0</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">0</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">2</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">10</td>
+            <td style="border:3px solid #000033; background-color:#006633; color:#ffffff; text-align:center; font-weight:bold; font-size:16px; padding:0px; margin:0px;">3</td>        </tr>
+    </table>
+</div>
