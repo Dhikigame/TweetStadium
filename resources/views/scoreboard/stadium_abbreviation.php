@@ -5,19 +5,19 @@ function stadium_abbreviation($stadium){
 
     $reuturn_stadium = $stadium;
     
-    if(mb_strpos($stadium, "京セラ") !== false){
+    if(strpos($stadium, "京セラ") !== false){
         $reuturn_stadium = "京セラ";
     }
-    if(mb_strpos($stadium, "ヤフオク") !== false){
+    if(strpos($stadium, "ヤフオク") !== false){
         $reuturn_stadium = "ヤフオク";
     }
-    if(mb_strpos($stadium, "マツダ") !== false){
+    if(strpos($stadium, "マツダ") !== false){
         $reuturn_stadium = "MAZDA";
     }
-    if(mb_strpos($stadium, "ほっと") !== false){
+    if(strpos($stadium, "ほっと") !== false){
         $reuturn_stadium = "ほっと";
     }
-    if(mb_strpos($stadium, "ＺＯＺＯ") !== false){
+    if(strpos($stadium, "ＺＯＺＯ") !== false){
         $reuturn_stadium = "ZOZOマリン";
     }
     return $reuturn_stadium;

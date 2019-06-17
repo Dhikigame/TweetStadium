@@ -70,18 +70,28 @@ class GameParse
                                 /*  天気情報がある場合  */
                                 if($weather->count()){
                                         $gamestart = $node->filter('p.stadium')->text();
-                                        $gamestart = mb_substr($gamestart, -7, 5);
-        
                                         $stadium = $node->filter('p.stadium')->text();
-                                        $stadium = mb_substr($stadium, 0, -7);
+                                        
+                                        if(strpos($_SERVER['REMOTE_ADDR'],'::1') !== false){
+                                            $gamestart = substr($gamestart, -7, 5);
+                                            $stadium = substr($stadium, 0, -7);
+                                        }else{
+                                            $gamestart = substr($gamestart, -6, 5);
+                                            $stadium = substr($stadium, 0, -6);
+                                        }
                                 }
                                 /*  天気情報が無い場合  */
                                 else{
                                         $gamestart = $node->filter('p.stadium')->text();
-                                        $gamestart = mb_substr($gamestart, -6, 5);
-        
                                         $stadium = $node->filter('p.stadium')->text();
-                                        $stadium = mb_substr($stadium, 0, -6);
+
+                                        if(strpos($_SERVER['REMOTE_ADDR'],'::1') !== false){
+                                            $gamestart = substr($gamestart, -6, 5);
+                                            $stadium = substr($stadium, 0, -6);
+                                        }else{
+                                            $gamestart = substr($gamestart, -5, 5);
+                                            $stadium = substr($stadium, 0, -5);
+                                        }
                                 }
                             }
                         }
@@ -93,10 +103,15 @@ class GameParse
 
                             if(count($node->filter('p.stadium'))){
                                 $gamestart = $node->filter('p.stadium')->text();
-                                $gamestart = substr($gamestart, -6, 5);
-    
                                 $stadium = $node->filter('p.stadium')->text();
-                                $stadium = substr($stadium, 0, -6);
+
+                                if(strpos($_SERVER['REMOTE_ADDR'],'::1') !== false){
+                                    $gamestart = substr($gamestart, -6, 5);
+                                    $stadium = substr($stadium, 0, -6);
+                                }else{
+                                    $gamestart = substr($gamestart, -5, 5);
+                                    $stadium = substr($stadium, 0, -5);
+                                }
                             }
                         }
                         $game_info[0] = $progress;
@@ -135,19 +150,29 @@ class GameParse
 
                                 /*  天気情報がある場合  */
                                 if($weather->count()){
-                                        $gamestart = $node->filter('p.stadium')->text();
-                                        $gamestart = mb_substr($gamestart, -7, 5);
-        
-                                        $stadium = $node->filter('p.stadium')->text();
-                                        $stadium = mb_substr($stadium, 0, -7);
+                                    $gamestart = $node->filter('p.stadium')->text();
+                                    $stadium = $node->filter('p.stadium')->text();
+
+                                    if(strpos($_SERVER['REMOTE_ADDR'],'::1') !== false){
+                                        $gamestart = substr($gamestart, -7, 5);
+                                        $stadium = substr($stadium, 0, -7);
+                                    }else{
+                                        $gamestart = substr($gamestart, -6, 5);
+                                        $stadium = substr($stadium, 0, -6);
+                                    }
                                 }
                                 /*  天気情報が無い場合  */
                                 else{
-                                        $gamestart = $node->filter('p.stadium')->text();
-                                        $gamestart = mb_substr($gamestart, -6, 5);
-        
-                                        $stadium = $node->filter('p.stadium')->text();
-                                        $stadium = mb_substr($stadium, 0, -6);
+                                    $gamestart = $node->filter('p.stadium')->text();
+                                    $stadium = $node->filter('p.stadium')->text();
+
+                                    if(strpos($_SERVER['REMOTE_ADDR'],'::1') !== false){
+                                        $gamestart = substr($gamestart, -6, 5);
+                                        $stadium = substr($stadium, 0, -6);
+                                    }else{
+                                        $gamestart = substr($gamestart, -5, 5);
+                                        $stadium = substr($stadium, 0, -5);
+                                    }
                                 }
                                     
                             }

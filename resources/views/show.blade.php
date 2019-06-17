@@ -10,6 +10,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <?php 
+ini_set('display_errors',1);
   $lat_lon = [
     'latitude' => $stadium_post[0]->latitude,
     'longitude' => $stadium_post[0]->longitude
@@ -42,8 +43,6 @@
 </div>
 
 <?php 
-  // phpinfo();
-  echo var_dump($stadium_post) . "<br>";
   scoreboard($stadium_post[1], $stadium_post[0]->stadium); 
 ?>
 

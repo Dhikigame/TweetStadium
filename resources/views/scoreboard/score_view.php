@@ -56,7 +56,7 @@ Class Score_View extends Score{
                 echo "    " . $this->stadium;
             echo "</div>";
             // 現在の試合進行
-            if(mb_strpos($this->total_progress, '試合終了') !== false){
+            if(strpos($this->total_progress, '試合終了') !== false){
                 echo '<div style="color:#ffffff; font-size:18px; padding:0px; ">';
                     echo $this->total_progress;
                 echo '</div>';
@@ -157,6 +157,7 @@ Class Score_View extends Score{
     }
 
     public function before_start_game_view(){
+
         echo "<center>";
 
             echo '<div style="width:700px; background-color:#006600; padding:10px; margin:10px; border:5px solid #009900; ">';
@@ -193,7 +194,9 @@ Class Score_View extends Score{
         $score_ahead = count($this->ahead_inning) - 3;
         $score_rear = count($this->rear_inning) - 3;
 
-        if(mb_strpos($this->total_progress, '試合終了') !== false){
+        if(strpos($this->total_progress, '試合終了') !== false){
+            $progress = $this->total_progress;
+        }else if(strpos($this->total_progress, '中止') !== false || strpos($this->total_progress, '中断') !== false){
             $progress = $this->total_progress;
         }else{
             $progress = $this->game_progress;
@@ -221,7 +224,7 @@ Class Score_View extends Score{
     public function before_start_game_abst(){
 
         $progress = $this->total_progress;
-        if(mb_strpos($this->total_progress, 'vs') !== false){
+        if(strpos($this->total_progress, 'vs') !== false){
             $progress = '試合開始前';
         }
 

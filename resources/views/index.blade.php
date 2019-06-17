@@ -1,4 +1,4 @@
-@extends('layouts.default')
+@extends('layouts.index.default')
   
   @section('title', '球場一覧')
 
