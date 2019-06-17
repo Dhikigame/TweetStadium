@@ -202,7 +202,6 @@ Class Tweet_Parse extends Twitter_TweetGet{
             }
             $lat_lon[$count]['latitude'] = $latitude;
             $lat_lon[$count]['longitude'] = $longitude;
-
             $count++;
         }
         $this->tweet_lat_lon = $lat_lon;
