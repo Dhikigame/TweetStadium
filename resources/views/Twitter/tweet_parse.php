@@ -202,6 +202,10 @@ Class Tweet_Parse extends Twitter_TweetGet{
             }
             $lat_lon[$count]['latitude'] = $latitude;
             $lat_lon[$count]['longitude'] = $longitude;
+<<<<<<< .merge_file_JgTAkw
+=======
+
+>>>>>>> .merge_file_pfE4l3
             $count++;
         }
         $this->tweet_lat_lon = $lat_lon;

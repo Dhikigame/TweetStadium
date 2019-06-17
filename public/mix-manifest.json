@@ -31,6 +31,7 @@
     "/js/app.daf000f9154c73ae0c13.hot-update.js": "/js/app.daf000f9154c73ae0c13.hot-update.js",
     "/js/comment_validate.daf000f9154c73ae0c13.hot-update.js": "/js/comment_validate.daf000f9154c73ae0c13.hot-update.js",
     "/js/app.2864aa88068f45c02772.hot-update.js": "/js/app.2864aa88068f45c02772.hot-update.js",
+<<<<<<< HEAD
     "/js/comment_validate.2864aa88068f45c02772.hot-update.js": "/js/comment_validate.2864aa88068f45c02772.hot-update.js",
     "/js/app.efab9c2a62ee7fd8af82.hot-update.js": "/js/app.efab9c2a62ee7fd8af82.hot-update.js",
     "/js/comment_validate.efab9c2a62ee7fd8af82.hot-update.js": "/js/comment_validate.efab9c2a62ee7fd8af82.hot-update.js",
@@ -46,4 +47,11 @@
     "/js/comment_validate.736fe37f1709c7c80683.hot-update.js": "/js/comment_validate.736fe37f1709c7c80683.hot-update.js",
     "/js/app.c5a015e15e5d43e0d0da.hot-update.js": "/js/app.c5a015e15e5d43e0d0da.hot-update.js",
     "/js/comment_validate.c5a015e15e5d43e0d0da.hot-update.js": "/js/comment_validate.c5a015e15e5d43e0d0da.hot-update.js"
+=======
+    "/js/app.efab9c2a62ee7fd8af82.hot-update.js": "/js/app.efab9c2a62ee7fd8af82.hot-update.js",
+    "/js/app.7718f5c7c8afb754fcb3.hot-update.js": "/js/app.7718f5c7c8afb754fcb3.hot-update.js",
+    "/js/comment_validate.7718f5c7c8afb754fcb3.hot-update.js": "/js/comment_validate.7718f5c7c8afb754fcb3.hot-update.js",
+    "/js/app.a2ce337f64cf92c16dc7.hot-update.js": "/js/app.a2ce337f64cf92c16dc7.hot-update.js",
+    "/js/comment_validate.a2ce337f64cf92c16dc7.hot-update.js": "/js/comment_validate.a2ce337f64cf92c16dc7.hot-update.js"
+>>>>>>> master
 }
