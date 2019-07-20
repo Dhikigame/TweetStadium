@@ -4,10 +4,16 @@ Class Score_Parse extends Score{
 
     protected $score_store;
     protected $stadium;
+    protected $index;
     
-    public function __construct($score, $stadium){
+    public function __construct($score, $stadium, $index=null){
         $this->score_store = $score;
         $this->stadium = $stadium;
+        if($index == null){
+            $this->index = false;
+        }else{
+            $this->index = true;
+        }
     }
 
     /* 対象のスタジアムでスタジアム内で試合が開催されているか調べる
@@ -29,8 +35,13 @@ Class Score_Parse extends Score{
             $stadium_score = stadium_abbreviation($stadium_score);
 
             // スタジアム情報あるか調べる(マルチバイト文字列対応)
-            if(strpos($this->stadium, $stadium_score) !== false){
+            if(strpos($this->stadium, $stadium_score) !== false && $this->index == false){
                 $reutrn_stadium = $this->score_store[$i];
+                break;
+            }
+            if(strpos($this->stadium, $stadium_score) !== false && $this->index == true){
+                $reutrn_stadium = $stadium_score;
+                // echo $reutrn_stadium;
                 break;
             }
 

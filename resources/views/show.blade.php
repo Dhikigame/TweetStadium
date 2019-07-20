@@ -10,7 +10,6 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 
 <?php 
-ini_set('display_errors',1);
   $lat_lon = [
     'latitude' => $stadium_post[0]->latitude,
     'longitude' => $stadium_post[0]->longitude

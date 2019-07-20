@@ -23,8 +23,8 @@ class GameNewsController extends Controller
         $client = new Client();
 
         $date = date("Ymd");
-        // $date = date("20190529");
-        // $date = date("20190604");
+        // $date = date("20190712");
+        // $date = date("20190607");
 
         // Https 関連でエラーが発生する場合があるので、チェックしないように設定
         $guzzleClient = new \GuzzleHttp\Client(['verify' => false]);

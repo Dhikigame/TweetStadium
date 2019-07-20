@@ -9,14 +9,18 @@ use App\Http\Controllers\Ajax\GameNewsController;
 class StadiumPostsController extends Controller
 {
     public function index() {
-        $posts = StadiumPost::all();
-        return view('index')->with('stadium_posts', $posts);
+        $post[0] = StadiumPost::all();
+        $gameparse = new GameNewsController();
+        $baseball = $gameparse->baseball();
+        // $post[0] = StadiumPost::findOrFail();
+        $post[1] = $baseball;
+
+        return view('index')->with('stadium_posts', $post);
     }
 
     public function show($id) {
         $gameparse = new GameNewsController();
         $gamepost = $gameparse->baseball();
-        // var_dump($gamepost);
         $post[0] = StadiumPost::findOrFail($id);
         $post[1] = $gamepost;
 
