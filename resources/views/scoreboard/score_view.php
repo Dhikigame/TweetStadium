@@ -254,9 +254,6 @@ Class Score_View extends Score{
     }
 
     public function index_score_game(){
-        $score_ahead = count($this->ahead_inning) - 3;
-        $score_rear = count($this->rear_inning) - 3;
-
         if(strpos($this->total_progress, '試合終了') !== false){
             $progress = $this->total_progress;
         }else if(strpos($this->total_progress, '中止') !== false || strpos($this->total_progress, '中断') !== false){
@@ -269,11 +266,11 @@ Class Score_View extends Score{
         $baseball_league = baseball_league($this->rear_team, $this->ahead_team);        
 
         if($baseball_league == "central"){
-            echo '<div class="baseball Central"><center>';
+            echo '<div class="baseball Central"><span class="box-title">セ・リーグ</span><center>';
         }else if($baseball_league == "pacific"){
-            echo '<div class="baseball Pacific"><center>';
+            echo '<div class="baseball Pacific"><span class="box-title">パ・リーグ</span><center>';
         }else{
-            echo '<div class="baseball Interleague"><center>';
+            echo '<div class="baseball Interleague"><span class="box-title">インターリーグ</span><center>';
         }
             echo '<span class="left">';
                 echo $this->rear_team;
@@ -301,23 +298,7 @@ Class Score_View extends Score{
                 echo $progress;
             echo '</span>';
         echo '</center></div>';
-            // echo '<table class="" border="0">';
-            //     echo '<tr>';
-            //         echo '<th><center><span class="team_font">' . $this->rear_team . '</span></center></th>';
-            //         echo '<th></th>';
-            //         echo '<th><center><span class="team_font">' . $this->ahead_team . '</span></center></th>';
-            //     echo '<tr>';
-            //     echo '<tr>';
-            //         echo '<td><center><span class="score_font">' . $this->rear_total_score. '</span></center></td>';
-            //         echo '<td><center><span class="score_font"> - </span></center></td>';
-            //         echo '<td><center><span class="score_font">' . $this->ahead_total_score . '</span></rcenter></td>';
-            //     echo '<tr>';
-            //     echo '<tr>';
-            //         echo '<td></td>';
-            //         echo '<td><center>' . $progress . '</center></td>';
-            //         echo '<td></td>';
-            //     echo '<tr>';
-            // echo '</table>';
+
     }
 
     public function index_before_start_game(){
@@ -326,16 +307,25 @@ Class Score_View extends Score{
             $progress = '試合開始前';
         }
 
-        echo '<div class="baseball"><center>';
-        echo '<span class="left">';
-            echo $this->rear_team;
-        echo '</span>';
-        echo '<span class="team-interval"></span>';
-        echo '<span class="right">';
-            echo $this->ahead_team;
-        echo '</span>';
+        require_once "game_league.php";
+        $baseball_league = baseball_league($this->rear_team, $this->ahead_team);        
 
-        echo '<br>';
+        if($baseball_league == "central"){
+            echo '<div class="baseball Central"><span class="box-title">セ・リーグ</span><center>';
+        }else if($baseball_league == "pacific"){
+            echo '<div class="baseball Pacific"><span class="box-title">パ・リーグ</span><center>';
+        }else{
+            echo '<div class="baseball Interleague"><span class="box-title">インターリーグ</span><center>';
+        }
+            echo '<span class="left">';
+                echo $this->rear_team;
+            echo '</span>';
+            echo '<span class="team-interval"></span>';
+            echo '<span class="right">';
+                echo $this->ahead_team;
+            echo '</span>';
+
+            echo '<br>';
 
         echo '<span class="center">';
             echo $this->gamestart_time;
@@ -348,33 +338,16 @@ Class Score_View extends Score{
         echo '</span>';
         echo '</center></div>';
 
-            // echo '<table class="" border="0">';
-            //     echo '<tr>';
-            //         echo '<th><center><span class="before_start_game_font">' . $this->rear_team . '</span></center></th>';
-            //         echo '<th></th>';
-            //         echo '<th><center><span class="before_start_game_font">' . $this->ahead_team . '</span></center></th>';
-            //     echo '<tr>';
-            //     echo '<tr>';
-            //         echo '<td></td>';
-            //         echo '<td><center>' . $this->gamestart_time . '</center></td>';
-            //         echo '<td></td>';
-            //     echo '<tr>';
-            //     echo '<tr>';
-            //         echo '<td></td>';
-            //         echo '<td><center>' . $progress . '</center></td>';
-            //         echo '<td></td>';
-            //     echo '<tr>';
-            // echo '</table>';
     }
 
     public function index_no_game_view(){
-        // echo "<center>";
-        // echo '<div font-size:20px; padding:10px; ">';
-        //     echo date("Y/m/d");
-        //     $date = date('w');
-        //     echo "(" . $this->week[$date] . ")";
-        //     echo "の試合はありません";
-        // echo '</div>';
-        // echo "</center>";
+        echo "<center>";
+        echo '<div font-size:20px; padding:10px; ">';
+            echo date("Y/m/d");
+            $date = date('w');
+            echo "(" . $this->week[$date] . ")";
+            echo "の試合はありません";
+        echo '</div>';
+        echo "</center>";
     }
 }

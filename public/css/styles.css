@@ -79,7 +79,7 @@ table th {
 /* index css */
 .baseball{
 	margin: 1em auto;
-	padding: 1em;
+    padding: 1em;
 	width: 80%; /* ボックス幅 */
 	color: rgb(0, 0, 0); /* 文章色 */
 	box-shadow: 0 0 5px 1px #c0c0c0; /* 影 */
@@ -96,6 +96,21 @@ table th {
 
 .Interleague{
     background-color: rgb(208, 225, 234); /* ボックス背景色 */
+}
+
+.box-title {
+    /* position: absolute; */
+    display: inline-block;
+    padding-top: 0px;
+    /* padding-top: -4em; */
+    /* top: -13px; */
+    /* left: 10px; */
+    /* padding: 0 9px; */
+    /* line-height: 0px; */
+    font-size: 19px;
+    /* background: rgb(255, 6, 6); */
+    color: #000000;
+    font-weight: bold;
 }
 
 @media (min-width: 1200px) {

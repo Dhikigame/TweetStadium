@@ -81,12 +81,6 @@ Class Score{
             // 試合開始時間
             $this->gamestart_time = $stadium_game[0][1][0][1];
 
-            // for($i = 0; $i < $ahead_inning_count; $i++){
-            //     for($j = 0; $j <= 1; $j++){
-            //         echo $this->ahead_inning[$i][$j] . "<br>";
-            //     }
-            // }
-
             // 本日、スタジアムで試合が開かれているので「有」判定
             $this->game_stadium = 1;
         }else{
@@ -112,25 +106,59 @@ Class Score{
             $this->rear_team = $stadium_game[0][0][0][1];
 
         // 試合のイニング総数[0]-[8] + 総得点[9]　+ 安打[10] + 失策[11]
-        // 先攻チームのイニング総数と情報取得
-        if($stadium_game[0][0][0][2] != null){
-            $ahead_inning_count = count($stadium_game[0][0][0][2]);
-            $this->ahead_total_score = $stadium_game[0][0][0][2][$ahead_inning_count - 3][0];
-            // echo $this->ahead_total_score . " ";
-        }else{
-            $this->ahead_inning = null;
-            $this->game_progress = null;
-        }
+            // 先攻チームのイニング総数と情報取得
+            if($stadium_game[0][0][0][2] != null){
+                $ahead_inning_count = count($stadium_game[0][0][0][2]);
+                $this->ahead_total_score = $stadium_game[0][0][0][2][$ahead_inning_count - 3][0];
+                for($i = 0; $i < $ahead_inning_count; $i++){
+                    for($j = 0; $j <= 1; $j++){
+                        $this->ahead_inning[$i][$j] = $stadium_game[0][0][0][2][$i][$j];
+                    }
+                    if(strpos($this->ahead_inning[$i][1], "now") !== false){
+                        $this->game_progress = $i + 1 . "回表";
+                    }
+                }
+            }else{
+                $this->ahead_inning = null;
+                $this->game_progress = null;
+            }
 
-        // 後攻チームのイニング総数と情報取得
-        if($stadium_game[0][0][0][3] != null){
-            $rear_inning_count = count($stadium_game[0][0][0][3]);
-            $this->rear_total_score = $stadium_game[0][0][0][3][$rear_inning_count - 3][0];
-            // echo $this->rear_total_score . "<br>";
-        }else{
-            $this->rear_inning = null;
-            $this->game_progress = null;
-        }
+            // 後攻チームのイニング総数と情報取得
+            if($stadium_game[0][0][0][3] != null){
+                $rear_inning_count = count($stadium_game[0][0][0][3]);
+                $this->rear_total_score = $stadium_game[0][0][0][3][$rear_inning_count - 3][0];
+                for($i = 0; $i < $rear_inning_count; $i++){
+                    for($j = 0; $j <= 1; $j++){
+                        $this->rear_inning[$i][$j] = $stadium_game[0][0][0][3][$i][$j];
+                    }
+                    if(strpos($this->rear_inning[$i][1], "now") !== false){
+                        $this->game_progress = $i + 1 . "回裏";
+                    }
+                }
+            }else{
+                $this->rear_inning = null;
+                $this->game_progress = null;
+            }
+        // // 試合のイニング総数[0]-[8] + 総得点[9]　+ 安打[10] + 失策[11]
+        // // 先攻チームのイニング総数と情報取得
+        // if($stadium_game[0][0][0][2] != null){
+        //     $ahead_inning_count = count($stadium_game[0][0][0][2]);
+        //     $this->ahead_total_score = $stadium_game[0][0][0][2][$ahead_inning_count - 3][0];
+        //     // echo $this->ahead_total_score . " ";
+        // }else{
+        //     $this->ahead_inning = null;
+        //     $this->game_progress = null;
+        // }
+
+        // // 後攻チームのイニング総数と情報取得
+        // if($stadium_game[0][0][0][3] != null){
+        //     $rear_inning_count = count($stadium_game[0][0][0][3]);
+        //     $this->rear_total_score = $stadium_game[0][0][0][3][$rear_inning_count - 3][0];
+        //     // echo $this->rear_total_score . "<br>";
+        // }else{
+        //     $this->rear_inning = null;
+        //     $this->game_progress = null;
+        // }
 
         // トータルで見る試合経過
         $this->total_progress = $stadium_game[0][1][0][0];
@@ -205,7 +233,6 @@ Class Score{
         $tmp = strtotime('+10 minute' , strtotime($time1));
         $gamestart_time_plus_10minitues = date('H:i',$tmp);
 
-        echo $this->game_progress;
         // 本日、試合開始されているかまたは試合開始してから10分後の時間でスコアボード表示
         if($this->game_stadium === 1){
             require_once "score_view.php";
