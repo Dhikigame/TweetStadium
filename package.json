@@ -28,7 +28,7 @@
     "puppeteer": "^1.15.0",
     "vee-validate": "^2.2.5",
     "vue-router": "^3.0.2",
-    "ws": "^7.0.0"
+    "ws": "^7.4.6"
   },
   "name": "Twitter_Stadium",
   "description": "スタジアム周辺でTwitterに投稿されたツイートを観覧するWebアプリケーション",
